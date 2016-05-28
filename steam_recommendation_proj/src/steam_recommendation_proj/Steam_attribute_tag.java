@@ -33,10 +33,18 @@ public class Steam_attribute_tag {
 		    // 開啟火狐瀏覽器
 		    WebDriver firefoxdrive = new FirefoxDriver();
             
-			firefoxdrive.get("http://store.steampowered.com/app/282350/");
+			firefoxdrive.get("http://store.steampowered.com/app/208650/");
 			
+			// 取得目前url網址字串
+			String url = firefoxdrive.getCurrentUrl();
 			
-	
+			// 判斷是否有出現年齡檢查畫面
+	        if (url.contains("agecheck")) {
+	        	
+	        // 自動點擊送出合法年齡	
+	        firefoxdrive.findElement(By.xpath("//select[@id='ageYear']/option[@value='1986']")).click();
+	        firefoxdrive.findElement(By.xpath("//form[@id='agecheck_form']/a")).click();	
+			}
 			
 			
 			// 選取介面語言點擊
