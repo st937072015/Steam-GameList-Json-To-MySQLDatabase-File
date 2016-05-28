@@ -28,4 +28,4 @@ Steam遊戲平台的遊戲清單json檔轉換處理後
 
 增加Steam遊戲屬性標籤scraper功能
 
-增加Steam評論scrapere功能(可自訂抓取需求數)
+增加Steam評論scraper功能 (*可自訂抓取需求數)
