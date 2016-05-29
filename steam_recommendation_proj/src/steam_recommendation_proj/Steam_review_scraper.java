@@ -107,17 +107,7 @@ public static void do_steam_review_scraper(String appid, int review_number){
 	
    }else{
 	   
-	   // 點擊一次確認是否有更多評論
-	   firefoxdrive.findElement(By.id("LoadMoreReviewsall")).click(); 
-	   
-		// 等待3秒讀取
-	    try {
-	        Thread.sleep(3000);
-	     } catch(Exception e) {
-	          	    	
-	     System.out.println(e);
-	          	   
-	     }	
+
 	
 	    
 	    
@@ -153,14 +143,19 @@ public static void do_steam_review_scraper(String appid, int review_number){
 
 
 	   count = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']")).size();
+if (firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size()!=0) {
+	
+	 // 等待Load More按鈕出現
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("LoadMoreReviewsall")));
+
+    // 確訂出現後再進行點擊
+    firefoxdrive.findElement(By.id("LoadMoreReviewsall")).click();
+	
+	
+}
 	   
 	   
-	   
-	       // 等待Load More按鈕出現
-	       wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("LoadMoreReviewsall")));
-	   
-	       // 確訂出現後再進行點擊
-	       firefoxdrive.findElement(By.id("LoadMoreReviewsall")).click();
+
 	   
 	   
 	   /*
@@ -492,7 +487,7 @@ firefoxdrive.close();
 	public static void main(String[] args) {
 		
 		// 執行steam_scraper
-		do_steam_review_scraper("282350", 20);
+		do_steam_review_scraper("454600", 24);
 
 	}
 
