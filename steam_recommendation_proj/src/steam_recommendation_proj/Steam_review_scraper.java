@@ -32,19 +32,20 @@ public class Steam_review_scraper {
 		    // 開啟火狐瀏覽器
 		    WebDriver firefoxdrive = new FirefoxDriver();
             
-			firefoxdrive.get("http://store.steampowered.com/app/431621/");
+			firefoxdrive.get("http://store.steampowered.com/app/5/");
 			
 			// 取得目前url網址字串
 			String url = firefoxdrive.getCurrentUrl();
 			
 			// 判斷是否有出現年齡檢查畫面
-			// 以及判斷是否為在Steam商場的有效真實遊戲
+			
 	        if (url.contains("agecheck")) {
 	        	
 	        // 自動點擊送出合法年齡	
 	        firefoxdrive.findElement(By.xpath("//select[@id='ageYear']/option[@value='1986']")).click();
 	        firefoxdrive.findElement(By.xpath("//form[@id='agecheck_form']/a")).click();	
 			}
+	        // 以及判斷是否為在Steam商場的有效真實遊戲
 	        else if (url.equals("http://store.steampowered.com/")) {
 				
 	        	// Debug
@@ -54,24 +55,8 @@ public class Steam_review_scraper {
 				firefoxdrive.close();
 	        	
 			}
-			
-			
-			// 選取介面語言點擊
-			firefoxdrive.findElement(By.id("language_pulldown")).click();
-			firefoxdrive.findElement(By.linkText("English（英文）")).click();
-			
-			// 等待5秒讀取
-	        try {
-	          	 Thread.sleep(5000);
-	        } catch(Exception e) {
-	          	    	
-	        System.out.println(e);
-	          	   
-	        }
-		   
-           
 	       // 若Most Helpful 與 Load More按鈕不存在就直接歸類為無效遊戲
-	        if ((firefoxdrive.findElements(By.id("ReviewsTab_all")).size() == 0 && firefoxdrive.findElements(By.xpath("//a[@class='btnv6_blue_blue_innerfade btn_medium']")).size() == 0)||(firefoxdrive.findElements(By.id("ReviewsTab_all")).size()==0) ) {
+	        else if ((firefoxdrive.findElements(By.id("ReviewsTab_all")).size() == 0 && firefoxdrive.findElements(By.xpath("//a[@class='btnv6_blue_blue_innerfade btn_medium']")).size() == 0)||(firefoxdrive.findElements(By.id("ReviewsTab_all")).size()==0) ) {
 				
 	        	// Debug
 	        	System.out.println("此遊戲為Steam商城的無效遊戲!!因為沒有Most Helpful與Load More之按鈕");
@@ -83,6 +68,21 @@ public class Steam_review_scraper {
 	         // 若確認沒問題則開始執行評論腳本	
 			}else{
 	        
+				
+			// 選取介面語言點擊
+			firefoxdrive.findElement(By.id("language_pulldown")).click();
+			firefoxdrive.findElement(By.linkText("English（英文）")).click();
+				
+			// 等待5秒讀取
+		    try {
+		        Thread.sleep(5000);
+		     } catch(Exception e) {
+		          	    	
+		     System.out.println(e);
+		          	   
+		     }	
+				
+				
 	        
            // 點擊Most Helpful之遊戲評論
            firefoxdrive.findElement(By.id("ReviewsTab_all")).click();
