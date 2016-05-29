@@ -352,13 +352,10 @@ public class Steam_review_scraper {
 */     }else{
 	
 	
-    // 判斷抓到評論數量計數器
-    int count = 0;
+  
     
     // debug從get_allreview_content取出的評論內容index(第幾筆)
-    int allreview_content_count=0;
-	
-    count = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']")).size();
+    int allreview_content_count=0;	
 	   
     
     //System.out.println("評論只有第一頁的幾筆而已!!所以剔除遊戲");
