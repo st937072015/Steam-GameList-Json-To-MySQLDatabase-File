@@ -142,6 +142,14 @@ public static void do_steam_review_scraper(String appid, int review_number){
   // 開始執行評論需求數量判斷處理 
   while (true) {
 	
+		// 等待2秒讀取
+	    try {
+	        Thread.sleep(2000);
+	     } catch(Exception e) {
+	          	    	
+	     System.out.println(e);
+	          	   
+	     }
 
 
 	   count = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']")).size();
