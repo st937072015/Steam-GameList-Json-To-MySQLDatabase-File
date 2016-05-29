@@ -32,7 +32,7 @@ public class Steam_review_scraper {
 		    // 開啟火狐瀏覽器
 		    WebDriver firefoxdrive = new FirefoxDriver();
             
-			firefoxdrive.get("http://store.steampowered.com/app/208650/");
+			firefoxdrive.get("http://store.steampowered.com/app/473640/");
 			
 			// 取得目前url網址字串
 			String url = firefoxdrive.getCurrentUrl();
@@ -56,7 +56,7 @@ public class Steam_review_scraper {
 	        	
 			}
 	       // 若Most Helpful 與 Load More按鈕不存在就直接歸類為無效遊戲
-	        if ((firefoxdrive.findElements(By.id("ReviewsTab_all")).size() == 0 && firefoxdrive.findElements(By.xpath("//a[@class='btnv6_blue_blue_innerfade btn_medium']")).size() == 0)||(firefoxdrive.findElements(By.id("ReviewsTab_all")).size()==0) ) {
+	        if ((firefoxdrive.findElements(By.id("ReviewsTab_all")).size() == 0 && firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size() == 0)||(firefoxdrive.findElements(By.id("ReviewsTab_all")).size()==0) ) {
 				
 	        	// Debug
 	        	System.out.println("此遊戲為Steam商城的無效遊戲!!因為沒有Most Helpful與Load More之按鈕");
@@ -106,10 +106,16 @@ public class Steam_review_scraper {
 	        	// 直接關閉火狐瀏覽器
 				firefoxdrive.close();
 				
-			// 確認必要網頁標籤與條件皆沒問題後進行評論抓取腳本	
+			
 		   }else{
- 
-           
+			   
+			   // 點擊一次確認是否有更多評論
+			   firefoxdrive.findElement(By.id("LoadMoreReviewsall")).click(); 
+			
+		   // 確認必要網頁標籤與條件皆沒問題後進行評論抓取腳本	
+           if (firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size() > 0) {
+			
+		
            
 
            
@@ -211,7 +217,7 @@ public class Steam_review_scraper {
 				
 				break;
 				
-			}else if (count < 55 && firefoxdrive.findElements(By.className("no_more_reviews")).size() > 0 && firefoxdrive.findElements(By.xpath("//a[@class='btnv6_blue_blue_innerfade btn_medium']")).size() == 0) {
+			}else if (count < 55 && firefoxdrive.findElements(By.className("no_more_reviews")).size() > 0 && firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size() == 0) {
 				
 	       	        // Debug
 		        	System.out.println("此遊戲為Steam商城的無效遊戲!!因為評論數不足");
@@ -331,7 +337,13 @@ public class Steam_review_scraper {
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());
 		}
-*/     
+*/     }else{
+	
+	System.out.println("評論只有第一頁的幾筆而已!!所以剔除遊戲");
+	
+	firefoxdrive.close();
+	
+    }
 	  }
 	}
 
