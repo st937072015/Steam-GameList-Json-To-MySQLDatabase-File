@@ -111,7 +111,19 @@ public class Steam_review_scraper {
 			   
 			   // 點擊一次確認是否有更多評論
 			   firefoxdrive.findElement(By.id("LoadMoreReviewsall")).click(); 
+			   
+				// 等待3秒讀取
+			    try {
+			        Thread.sleep(3000);
+			     } catch(Exception e) {
+			          	    	
+			     System.out.println(e);
+			          	   
+			     }	
 			
+			    
+			    
+			    
 		   // 確認必要網頁標籤與條件皆沒問題後進行評論抓取腳本	
            if (firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size() > 0) {
 			
@@ -159,7 +171,7 @@ public class Steam_review_scraper {
         	   
         	   System.out.println("目前抓到一共"+count+"個評論");
         	   
-        	   if (count == 55) {
+        	   if (count == 6) {
         		   
         		   
         		   List<WebElement> get_allreview_content = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']"));
@@ -181,7 +193,7 @@ public class Steam_review_scraper {
         		   
         		   break;
 				
-			}else if (count > 55) {
+			}else if (count > 6) {
 				
 				List<WebElement> get_allreview_content = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']"));
 				System.out.println("一開始Size為:"+get_allreview_content.size()+"，count為"+count);
@@ -193,7 +205,7 @@ public class Steam_review_scraper {
 					get_allreview_content.remove(count_more);
 					System.out.println("目前減掉Size為:"+get_allreview_content.size());
 					
-					if (count_more == 55) {
+					if (count_more == 6) {
 						
 						
 						for(WebElement  webele_count :get_allreview_content){
@@ -217,7 +229,7 @@ public class Steam_review_scraper {
 				
 				break;
 				
-			}else if (count < 55 && firefoxdrive.findElements(By.className("no_more_reviews")).size() > 0 && firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size() == 0) {
+			}else if (count < 6 && firefoxdrive.findElements(By.className("no_more_reviews")).size() > 0 && firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size() == 0) {
 				
 	       	        // Debug
 		        	System.out.println("此遊戲為Steam商城的無效遊戲!!因為評論數不足");
@@ -339,9 +351,34 @@ public class Steam_review_scraper {
 		}
 */     }else{
 	
-	System.out.println("評論只有第一頁的幾筆而已!!所以剔除遊戲");
 	
-	firefoxdrive.close();
+    // 判斷抓到評論數量計數器
+    int count = 0;
+    
+    // debug從get_allreview_content取出的評論內容index(第幾筆)
+    int allreview_content_count=0;
+	
+    count = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']")).size();
+	   
+    
+    //System.out.println("評論只有第一頁的幾筆而已!!所以剔除遊戲");
+	
+	   List<WebElement> get_allreview_content = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']"));
+	   
+	   
+	   
+	   System.out.println("目前抓到一共"+get_allreview_content.size()+"個評論");
+	   
+		for(WebElement  webele_count :get_allreview_content){
+	allreview_content_count++;
+	System.out.println("第"+allreview_content_count+"個遊戲評論，"+"評論內容為"+webele_count.getText());
+		
+      }
+		
+		
+		// 抓取完畢後關閉火狐瀏覽器
+		firefoxdrive.close();	
+		 
 	
     }
 	  }
