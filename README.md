@@ -1,6 +1,6 @@
 ------------------------------------------------
 
-Steam-GameList-Json-To-MySQLDatabase-File
+Steam-Json-Convert-MySQL-Database-And-Scraper
 
 ------------------------------------------------
 
