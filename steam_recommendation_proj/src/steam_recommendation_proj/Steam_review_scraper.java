@@ -32,7 +32,7 @@ public class Steam_review_scraper {
 		    // 開啟火狐瀏覽器
 		    WebDriver firefoxdrive = new FirefoxDriver();
             
-			firefoxdrive.get("http://store.steampowered.com/app/5/");
+			firefoxdrive.get("http://store.steampowered.com/app/208650/");
 			
 			// 取得目前url網址字串
 			String url = firefoxdrive.getCurrentUrl();
@@ -56,7 +56,7 @@ public class Steam_review_scraper {
 	        	
 			}
 	       // 若Most Helpful 與 Load More按鈕不存在就直接歸類為無效遊戲
-	        else if ((firefoxdrive.findElements(By.id("ReviewsTab_all")).size() == 0 && firefoxdrive.findElements(By.xpath("//a[@class='btnv6_blue_blue_innerfade btn_medium']")).size() == 0)||(firefoxdrive.findElements(By.id("ReviewsTab_all")).size()==0) ) {
+	        if ((firefoxdrive.findElements(By.id("ReviewsTab_all")).size() == 0 && firefoxdrive.findElements(By.xpath("//a[@class='btnv6_blue_blue_innerfade btn_medium']")).size() == 0)||(firefoxdrive.findElements(By.id("ReviewsTab_all")).size()==0) ) {
 				
 	        	// Debug
 	        	System.out.println("此遊戲為Steam商城的無效遊戲!!因為沒有Most Helpful與Load More之按鈕");
@@ -65,10 +65,10 @@ public class Steam_review_scraper {
 				firefoxdrive.close();	
 	        	
 	        	
-	         // 若確認沒問題則開始執行評論腳本	
-			}else{
-	        
+	         // 確認語言按鈕點擊
+			}else if (firefoxdrive.findElements(By.id("language_pulldown")).size() > 0) {
 				
+			
 			// 選取介面語言點擊
 			firefoxdrive.findElement(By.id("language_pulldown")).click();
 			firefoxdrive.findElement(By.linkText("English（英文）")).click();
@@ -81,30 +81,37 @@ public class Steam_review_scraper {
 		     System.out.println(e);
 		          	   
 		     }	
+		    
+	          // 點擊Most Helpful之遊戲評論
+	           firefoxdrive.findElement(By.id("ReviewsTab_all")).click();
+	           
+	           // 等待5秒讀取
+	           try {
+	       	        Thread.sleep(5000);
+	       	    } catch(Exception e) {
+	       	    	
+	       	    System.out.println(e);
+	       	   
+	       	    }
+		    
+		    
+		    
+			}	
 				
-				
-	        
-           // 點擊Most Helpful之遊戲評論
-           firefoxdrive.findElement(By.id("ReviewsTab_all")).click();
-           
-           // 等待5秒讀取
-           try {
-       	        Thread.sleep(5000);
-       	    } catch(Exception e) {
-       	    	
-       	    System.out.println(e);
-       	   
-       	    }
-           
-           
-           // 若評論內容標籤不存在就直接歸類為無效遊戲
+	                  // 若評論內容標籤不存在就直接歸類為無效遊戲
            if (firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']")).size()==0) {
            	    // Debug
 	        	System.out.println("此遊戲為Steam商城的無效遊戲!!因為根本沒評論");
 	        	
 	        	// 直接關閉火狐瀏覽器
-				firefoxdrive.close();	
-		   }
+				firefoxdrive.close();
+				
+			// 確認必要網頁標籤與條件皆沒問題後進行評論抓取腳本	
+		   }else{
+ 
+           
+           
+
            
            
            // 等待標籤讀取之物件(設定10秒)
@@ -126,13 +133,13 @@ public class Steam_review_scraper {
       	   
       	   
       	       // 等待Load More按鈕出現
-      	       wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='btnv6_blue_blue_innerfade btn_medium']")));
+      	       wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("LoadMoreReviewsall")));
         	   
       	       // 確訂出現後再進行點擊
-      	       firefoxdrive.findElement(By.xpath("//a[@class='btnv6_blue_blue_innerfade btn_medium']")).click();
+      	       firefoxdrive.findElement(By.id("LoadMoreReviewsall")).click();
         	   
         	   
-        	   
+        	   /*
       	       // 等待5秒讀取
         	   try {
           	        Thread.sleep(5000);
@@ -141,7 +148,7 @@ public class Steam_review_scraper {
           	    System.out.println(e);
           	   
           	    }
-        	   
+        	   */
         	   
         	   
         	   System.out.println("目前抓到一共"+count+"個評論");
@@ -223,7 +230,7 @@ public class Steam_review_scraper {
 	}
            
         	   
-			}
+			
         	   
 			
 		
@@ -324,7 +331,8 @@ public class Steam_review_scraper {
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());
 		}
-*/
+*/     
+	  }
 	}
 
 }
