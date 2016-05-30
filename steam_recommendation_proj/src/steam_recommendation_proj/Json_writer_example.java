@@ -28,10 +28,10 @@ public class Json_writer_example {
 				// 建立刷新Json物件
 				JSONObject review_obj = new JSONObject();
 
-				review_obj.put("姓名", "黃梓瑞");
+				review_obj.put("姓名", "太神啦");
 				review_obj.put("人格特質", "神經質");
 
-				review_array.add(i, review_obj);
+				review_array.add(review_obj);
 			}
 
 			// 建立抓取到遊戲評論的JSON檔

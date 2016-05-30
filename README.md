@@ -34,4 +34,22 @@ Steam遊戲平台的遊戲清單json檔轉換處理後
 
 2016/05/30
 
-Steam評論scraper呼叫類別功能完成 (*可自訂抓取需求數 *Export成.json檔案 *指定輸出路徑)
+Steam評論scraper呼叫類別功能完成 
+
+(*可自訂遊戲的appid(例如Steam NBA 2K16的appid為370240) *可自訂抓取需求數 *Export成.json檔案 *指定輸出路徑)
+
+使用方式:
+
+直接呼叫 Steam_review_scraper.java 類別function：
+
+Steam_review_scraper.do_steam_review_scraper_now("appid", review_number, "json_export_path");
+
+------------------------------------------------
+
+appid = Steamm的遊戲id編號
+
+review_number = 指定抓取評論內容之數量
+
+json_export_path = 指定json檔案輸出路徑
+
+------------------------------------------------
