@@ -526,7 +526,7 @@ public class Steam_review_scraper {
 	public static void main(String[] args) {
 
 		// 執行steam_scraper
-		do_steam_review_scraper_now("282350", 17, "C:\\Users\\John-Wall\\Desktop\\Steam_game\\282350.json");
+		do_steam_review_scraper_now("5", 17, "C:\\Users\\John-Wall\\Desktop\\Steam_game\\282350.json");
 
 	}
 
