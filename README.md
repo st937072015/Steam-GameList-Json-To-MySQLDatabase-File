@@ -46,7 +46,7 @@ Steam_review_scraper.do_steam_review_scraper_now("appid", review_number, "json_e
 
 ------------------------------------------------
 
-appid = Steamm的遊戲id編號
+appid = Steam的遊戲id編號
 
 review_number = 指定抓取評論內容之數量
 
