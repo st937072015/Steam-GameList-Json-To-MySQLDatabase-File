@@ -20,11 +20,13 @@ public class Json_writer_example {
 		try {
 
 			// 匯出json檔
-
-			JSONObject review_obj = new JSONObject();
+			// 建立Json Array
 			JSONArray review_array = new JSONArray();
 
 			for (int i = 0; i < 3; i++) {
+
+				// 建立刷新Json物件
+				JSONObject review_obj = new JSONObject();
 
 				review_obj.put("姓名", "黃梓瑞");
 				review_obj.put("人格特質", "神經質");
