@@ -1,11 +1,11 @@
 package steam_recommendation_proj;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,7 +23,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Steam_review_scraper {
 
-public static void do_steam_review_scraper(String appid, int review_number){
+public static void do_steam_review_scraper_now(String appid, int review_number, String json_output_path){
 
 	
 	
@@ -145,10 +145,10 @@ public static void do_steam_review_scraper(String appid, int review_number){
 	   count = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='content']")).size();
 if (firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size()!=0) {
 	
-	 // 等待Load More按鈕出現
+	 // 等待Load More按鈕出現若超過10秒都沒出現就停止程式
     wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("LoadMoreReviewsall")));
 
-    // 確訂出現後再進行點擊
+    // 確定出現後再進行點擊
     firefoxdrive.findElement(By.id("LoadMoreReviewsall")).click();
 	
 	
@@ -183,16 +183,67 @@ if (firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size()!=0) {
 		   // 評論作者名總評論數量
 		   List<WebElement> get_allreview_review_number = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='num_reviews']/a"));
 		   
+		   //---------------------------------------------------------------------------------------------//
+		   
+		   // 建立Json Array
+		   JSONArray review_array = new JSONArray();
+		   
+		   
 		   System.out.println("目前抓到一共"+count+"個評論");
 		   
-			    			for(int i=0; i<=get_allreview_content.size()-1; i++){
+			    			for(int i=0; i < get_allreview_content.size(); i++){
 			allreview_content_count++;
 			System.out.println("第"+allreview_content_count+"個遊戲評論，"+"評論作者為"+get_allreview_persona_name.get(i).getText()+"，評論內容為"+get_allreview_content.get(i).getText()+"，評論網址為"+get_allreview_review_url.get(i).getAttribute("href")+"，評論作者profile網址為"+get_allreview_persona_name.get(i).getAttribute("href")+"，評論作者所有評論數量為"+get_allreview_review_number.get(i).getText());
+			
+			
+			// 建立刷新Json物件
+			JSONObject review_obj = new JSONObject();
+			// user_name 評論作者暱稱
+			review_obj.put("user_name", get_allreview_persona_name.get(i).getText());
+			
+			// user_profile 評論作者個人檔案之url
+			review_obj.put("user_profile", get_allreview_persona_name.get(i).getAttribute("href"));
+			
+			// review_number 評論作者總評論數量
+			review_obj.put("review_number", get_allreview_review_number.get(i).getText());
+			
+			// review_url 評論之url
+			review_obj.put("review_url", get_allreview_review_url.get(i).getAttribute("href"));
+			
+			// review_content 評論之文字內容
+			review_obj.put("review_content", get_allreview_content.get(i).getText());
+			
+			// 寫入Json物件與JsonArray
+			
+			review_array.add(review_obj);
 			
 			
 			
 		}
 		   
+
+           try {
+        	// 建立抓取到遊戲評論的JSON檔
+   			File file = new File(json_output_path);
+   			file.createNewFile();
+   			FileWriter json_writer = new FileWriter(file);
+
+   			// 寫入JSON物件
+   			json_writer.write("{" + "\"steam_review\" :" + review_array.toJSONString() + "}");
+
+   			// 關閉寫入
+   			json_writer.flush();
+   			json_writer.close();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+			    			
+            //---------------------------------------------------------------------------------------------//	    			
+			    			
+			    			
+			    			
+			    			
+			    			
 		   
 		   
 		   
@@ -207,7 +258,10 @@ if (firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size()!=0) {
 		   List<WebElement> get_allreview_review_url = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div[@class='rightcol']/a"));
 		   // 評論作者名總評論數量
 		   List<WebElement> get_allreview_review_number = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='num_reviews']/a"));
-		
+		   
+		   // 建立Json Array
+		   JSONArray review_array = new JSONArray();
+		   
 		System.out.println("一開始Size為:"+get_allreview_persona_name.size()+" "+get_allreview_persona_name.size()+" "+get_allreview_content.size()+" "+get_allreview_review_url.size()+" "+get_allreview_review_number.size()+"，count為"+count);
 		int count_more =get_allreview_content.size();
 		
@@ -224,13 +278,50 @@ if (firefoxdrive.findElements(By.id("LoadMoreReviewsall")).size()!=0) {
 			if (count_more == review_number) {
 				
 				
-    			for(int i=0; i<=get_allreview_content.size()-1; i++){
-allreview_content_count++;
-System.out.println("第"+allreview_content_count+"個遊戲評論，"+"評論作者為"+get_allreview_persona_name.get(i).getText()+"，評論內容為"+get_allreview_content.get(i).getText()+"，評論網址為"+get_allreview_review_url.get(i).getAttribute("href")+"，評論作者profile網址為"+get_allreview_persona_name.get(i).getAttribute("href")+"，評論作者所有評論數量為"+get_allreview_review_number.get(i).getText());
+				for(int i=0; i < get_allreview_content.size(); i++){
+					allreview_content_count++;
+					System.out.println("第"+allreview_content_count+"個遊戲評論，"+"評論作者為"+get_allreview_persona_name.get(i).getText()+"，評論內容為"+get_allreview_content.get(i).getText()+"，評論網址為"+get_allreview_review_url.get(i).getAttribute("href")+"，評論作者profile網址為"+get_allreview_persona_name.get(i).getAttribute("href")+"，評論作者所有評論數量為"+get_allreview_review_number.get(i).getText());
+					// 建立刷新Json物件
+					JSONObject review_obj = new JSONObject();
+					// user_name 評論作者暱稱
+					review_obj.put("user_name", get_allreview_persona_name.get(i).getText());
+					
+					// user_profile 評論作者個人檔案之url
+					review_obj.put("user_profile", get_allreview_persona_name.get(i).getAttribute("href"));
+					
+					// review_number 評論作者總評論數量
+					review_obj.put("review_number", get_allreview_review_number.get(i).getText());
+					
+					// review_url 評論之url
+					review_obj.put("review_url", get_allreview_review_url.get(i).getAttribute("href"));
+					
+					// review_content 評論之文字內容
+					review_obj.put("review_content", get_allreview_content.get(i).getText());
+					
+					// 寫入Json物件與JsonArray
+					
+					review_array.add(review_obj);
+					
+					
+					
+				}
+				   
 
+		           try {
+		        	// 建立抓取到遊戲評論的JSON檔
+		   			File file = new File(json_output_path);
+		   			file.createNewFile();
+		   			FileWriter json_writer = new FileWriter(file);
 
+		   			// 寫入JSON物件
+		   			json_writer.write("{" + "\"steam_review\" :" + review_array.toJSONString() + "}");
 
-}
+		   			// 關閉寫入
+		   			json_writer.flush();
+		   			json_writer.close();
+				} catch (Exception e) {
+					System.out.println(e.toString());
+				}
 				
 				
 				break;
@@ -389,13 +480,60 @@ if (count == review_number) {
    
    System.out.println("目前抓到一共"+count+"個評論");
    
-	    			for(int i=0; i<=get_allreview_content.size()-1; i++){
+ //---------------------------------------------------------------------------------------------//
+   
+   // 建立Json Array
+   JSONArray review_array = new JSONArray();
+   
+   
+   System.out.println("目前抓到一共"+count+"個評論");
+   
+	    			for(int i=0; i < get_allreview_content.size(); i++){
 	allreview_content_count++;
 	System.out.println("第"+allreview_content_count+"個遊戲評論，"+"評論作者為"+get_allreview_persona_name.get(i).getText()+"，評論內容為"+get_allreview_content.get(i).getText()+"，評論網址為"+get_allreview_review_url.get(i).getAttribute("href")+"，評論作者profile網址為"+get_allreview_persona_name.get(i).getAttribute("href")+"，評論作者所有評論數量為"+get_allreview_review_number.get(i).getText());
+	// 建立刷新Json物件
+	JSONObject review_obj = new JSONObject();
+	// user_name 評論作者暱稱
+	review_obj.put("user_name", get_allreview_persona_name.get(i).getText());
+	
+	// user_profile 評論作者個人檔案之url
+	review_obj.put("user_profile", get_allreview_persona_name.get(i).getAttribute("href"));
+	
+	// review_number 評論作者總評論數量
+	review_obj.put("review_number", get_allreview_review_number.get(i).getText());
+	
+	// review_url 評論之url
+	review_obj.put("review_url", get_allreview_review_url.get(i).getAttribute("href"));
+	
+	// review_content 評論之文字內容
+	review_obj.put("review_content", get_allreview_content.get(i).getText());
+	
+	// 寫入Json物件與JsonArray
+	
+	review_array.add(review_obj);
 	
 	
 	
 }
+   
+
+   try {
+	// 建立抓取到遊戲評論的JSON檔
+		File file = new File(json_output_path);
+		file.createNewFile();
+		FileWriter json_writer = new FileWriter(file);
+
+		// 寫入JSON物件
+		json_writer.write("{" + "\"steam_review\" :" + review_array.toJSONString() + "}");
+
+		// 關閉寫入
+		json_writer.flush();
+		json_writer.close();
+} catch (Exception e) {
+	System.out.println(e.toString());
+}
+	    			
+    //---------------------------------------------------------------------------------------------//	 
 	
 	
 	
@@ -415,7 +553,10 @@ if (count == review_number) {
    List<WebElement> get_allreview_review_url = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div[@class='rightcol']/a"));
    // 評論作者名總評論數量
    List<WebElement> get_allreview_review_number = firefoxdrive.findElements(By.xpath("html/body/div/div/div/div/div/div/div/div/div/div/div/div/div[@class='num_reviews']/a"));
-	
+   
+   // 建立Json Array
+   JSONArray review_array = new JSONArray();
+   
 	System.out.println("一開始Size為:"+get_allreview_persona_name.size()+" "+get_allreview_persona_name.size()+" "+get_allreview_content.size()+" "+get_allreview_review_url.size()+" "+get_allreview_review_number.size()+"，count為"+count);
 	int count_more =get_allreview_content.size();
 	
@@ -432,13 +573,50 @@ if (count == review_number) {
 		if (count_more == review_number) {
 			
 			
-			for(int i=0; i<=get_allreview_content.size()-1; i++){
-allreview_content_count++;
-System.out.println("第"+allreview_content_count+"個遊戲評論，"+"評論作者為"+get_allreview_persona_name.get(i).getText()+"，評論內容為"+get_allreview_content.get(i).getText()+"，評論網址為"+get_allreview_review_url.get(i).getAttribute("href")+"，評論作者profile網址為"+get_allreview_persona_name.get(i).getAttribute("href")+"，評論作者所有評論數量為"+get_allreview_review_number.get(i).getText());
+			for(int i=0; i < get_allreview_content.size(); i++){
+				allreview_content_count++;
+				System.out.println("第"+allreview_content_count+"個遊戲評論，"+"評論作者為"+get_allreview_persona_name.get(i).getText()+"，評論內容為"+get_allreview_content.get(i).getText()+"，評論網址為"+get_allreview_review_url.get(i).getAttribute("href")+"，評論作者profile網址為"+get_allreview_persona_name.get(i).getAttribute("href")+"，評論作者所有評論數量為"+get_allreview_review_number.get(i).getText());
+				// 建立刷新Json物件
+				JSONObject review_obj = new JSONObject();
+				// user_name 評論作者暱稱
+				review_obj.put("user_name", get_allreview_persona_name.get(i).getText());
+				
+				// user_profile 評論作者個人檔案之url
+				review_obj.put("user_profile", get_allreview_persona_name.get(i).getAttribute("href"));
+				
+				// review_number 評論作者總評論數量
+				review_obj.put("review_number", get_allreview_review_number.get(i).getText());
+				
+				// review_url 評論之url
+				review_obj.put("review_url", get_allreview_review_url.get(i).getAttribute("href"));
+				
+				// review_content 評論之文字內容
+				review_obj.put("review_content", get_allreview_content.get(i).getText());
+				
+				// 寫入Json物件與JsonArray
+				
+				review_array.add(review_obj);
+				
+				
+				
+			}
+			   
 
+			   try {
+				// 建立抓取到遊戲評論的JSON檔
+					File file = new File(json_output_path);
+					file.createNewFile();
+					FileWriter json_writer = new FileWriter(file);
 
+					// 寫入JSON物件
+					json_writer.write("{" + "\"steam_review\" :" + review_array.toJSONString() + "}");
 
-}
+					// 關閉寫入
+					json_writer.flush();
+					json_writer.close();
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
 		
 		
 		break;
@@ -487,7 +665,7 @@ firefoxdrive.close();
 	public static void main(String[] args) {
 		
 		// 執行steam_scraper
-		do_steam_review_scraper("454600", 24);
+		do_steam_review_scraper_now("282350", 17, "C:\\Users\\John-Wall\\Desktop\\Steam_game\\282350.json");
 
 	}
 

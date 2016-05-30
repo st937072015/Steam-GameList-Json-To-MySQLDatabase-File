@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -70,7 +71,9 @@ public class Steam_GameList_To_Mysql {
 			 * 
 			 * }
 			 * 
-			 * // 關閉寫入 steamwriter.close();
+			 * // 關閉寫入 
+			 * steamwriter.flush();
+			 * steamwriter.close();
 			 */
 
 		} catch (
