@@ -1,11 +1,11 @@
 package steam_recommendation_proj;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -34,17 +34,18 @@ public class Json_writer_example {
 				review_array.add(review_obj);
 			}
 
-			// 建立抓取到遊戲評論的JSON檔
-			File file = new File("C:\\Users\\John-Wall\\Desktop\\test.json");
-			file.createNewFile();
-			FileWriter json_writer = new FileWriter(file);
+			 // 建立抓取到遊戲評論的JSON檔
+			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\test.json");
+			 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
-			// 寫入JSON物件
-			json_writer.write("{" + "\"app\" :" + review_array.toJSONString() + "}");
+			 // 寫入JSON物件
+			 json_writer.write("{" + "\"app\" :" + review_array.toJSONString() + "}");
+			 
+			 // 關閉寫入
+			 json_writer.flush();
+			 json_writer.close();
 
-			// 關閉寫入
-			json_writer.flush();
-			json_writer.close();
+			
 
 		} catch (IOException e) {
 			System.out.println(e.toString());

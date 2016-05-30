@@ -1,11 +1,13 @@
 package steam_recommendation_proj;
 
-import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -193,9 +195,8 @@ public class Steam_review_scraper {
 
 						try {
 							// 建立抓取到遊戲評論的JSON檔
-							File file = new File(json_output_path);
-							file.createNewFile();
-							FileWriter json_writer = new FileWriter(file);
+							FileOutputStream fos = new FileOutputStream(json_output_path);
+							Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
 							// 寫入JSON物件
 							json_writer.write("{" + "\"steam_review\" :" + review_array.toJSONString() + "}");
@@ -282,9 +283,8 @@ public class Steam_review_scraper {
 
 								try {
 									// 建立抓取到遊戲評論的JSON檔
-									File file = new File(json_output_path);
-									file.createNewFile();
-									FileWriter json_writer = new FileWriter(file);
+									FileOutputStream fos = new FileOutputStream(json_output_path);
+									Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
 									// 寫入JSON物件
 									json_writer.write("{" + "\"steam_review\" :" + review_array.toJSONString() + "}");
@@ -393,9 +393,8 @@ public class Steam_review_scraper {
 
 					try {
 						// 建立抓取到遊戲評論的JSON檔
-						File file = new File(json_output_path);
-						file.createNewFile();
-						FileWriter json_writer = new FileWriter(file);
+						FileOutputStream fos = new FileOutputStream(json_output_path);
+						Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
 						// 寫入JSON物件
 						json_writer.write("{" + "\"steam_review\" :" + review_array.toJSONString() + "}");
@@ -482,9 +481,8 @@ public class Steam_review_scraper {
 
 							try {
 								// 建立抓取到遊戲評論的JSON檔
-								File file = new File(json_output_path);
-								file.createNewFile();
-								FileWriter json_writer = new FileWriter(file);
+								FileOutputStream fos = new FileOutputStream(json_output_path);
+								Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
 								// 寫入JSON物件
 								json_writer.write("{" + "\"steam_review\" :" + review_array.toJSONString() + "}");
@@ -526,7 +524,7 @@ public class Steam_review_scraper {
 	public static void main(String[] args) {
 
 		// 執行steam_scraper
-		do_steam_review_scraper_now("5", 17, "C:\\Users\\John-Wall\\Desktop\\Steam_game\\282350.json");
+		do_steam_review_scraper_now("282350", 53, "C:\\Users\\John-Wall\\Desktop\\Steam_game\\282350.json");
 
 	}
 
