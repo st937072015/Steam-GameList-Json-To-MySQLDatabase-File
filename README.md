@@ -20,7 +20,7 @@ selenium-server-standalone jar lib
 
 2016/05/16
 
-透過Java的json-simple-1.1.1.jar將著名的
+透過Java的json-simple將著名的
 Steam遊戲平台的遊戲清單json檔轉換處理後
 再利用JDBC送進自己電腦的Mysql資料庫中並建立Table
 
@@ -53,5 +53,11 @@ appid = Steam的遊戲id編號
 review_number = 指定抓取評論內容之數量
 
 json_export_path = 指定json檔案輸出路徑
+
+------------------------------------------------
+
+2016/05/31
+
+開始進行有效遊戲與無效遊戲清理淨化
 
 ------------------------------------------------
