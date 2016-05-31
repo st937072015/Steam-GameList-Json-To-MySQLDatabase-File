@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/mysql-connector-java-5.1.39-bin.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/selenium-java-2.53.0.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/selenium-server-standalone-2.53.0.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jsoup-1.9.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

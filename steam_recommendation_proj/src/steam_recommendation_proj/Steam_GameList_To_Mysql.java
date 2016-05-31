@@ -50,7 +50,7 @@ public class Steam_GameList_To_Mysql {
 						"INSERT INTO game_info(appid, name) VALUES(?, ?)");
 				// Debug訊息
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
-						+ collection.get("name") + "** ");
+						+ collection.get("name").toString() + "** ");
 
 			}
 			System.out.println("恭喜!全部插入完成!");

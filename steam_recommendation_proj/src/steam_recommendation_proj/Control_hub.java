@@ -41,7 +41,7 @@ public class Control_hub {
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
 						+ collection.get("name") + "** ");
 
-				Steam_review_scraper.do_steam_review_scraper_now(collection.get("appid").toString(), 20,
+				Steam_review_scraper.do_steam_review_scraper_now(collection.get("appid").toString(), 200,
 						"C:\\Users\\John-Wall\\Desktop\\Steam_game\\" + collection.get("appid").toString() + ".json");
 
 			}

@@ -8,6 +8,8 @@ Requirement :
 
 json-simple jar lib
 
+jsoup jar lib
+
 mysql-connector-java jar lib
 
 selenium-java jar lib
