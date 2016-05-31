@@ -65,7 +65,7 @@ public class Steam_check_valid {
 */
 		try {
 
-			// 讀取測試json檔
+			// 讀取Steam總遊戲清單json檔
 			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\SteamGameList_2016_05_23_valid_raw.json");
 			JSONParser parser = new JSONParser();
 			JSONObject read_parser = (JSONObject) parser.parse(json_reader);
@@ -87,15 +87,22 @@ public class Steam_check_valid {
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
 						+ collection.get("name").toString() + "** ");
 				
+				// 檢查遊戲先前是否就已經有被判斷過
+				File check_file_pass =new File("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\pass\\"+collection.get("appid").toString()+"_pass.json");
 				
-				File check_file =new File("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\"+collection.get("appid").toString()+".json");
-				if (check_file.exists()) {
+				File check_file_fail =new File("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\fail\\"+collection.get("appid").toString()+"_fail.json");
+				
+				if (check_file_pass.exists() || check_file_fail.exists()) {
 					
 					// Debug
 					System.out.println("此遊戲"+collection.get("appid").toString()+"已經判斷過啦");
 					
 					
-				}else {
+					
+				}
+				
+				// 進行判斷是否為有效遊戲
+				else {
 					
 				
 				
@@ -116,6 +123,17 @@ public class Steam_check_valid {
 					
 				// Debug
 				System.out.println("此遊戲"+collection.get("appid").toString()+"為Steam商城的無效遊戲!!因為沒有Most Helpful之按鈕");
+				
+				 // 建立無效遊戲的JSON檔
+				 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\fail\\"+collection.get("appid").toString()+"_fail.json");
+				 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
+
+				 // 寫入JSON物件
+				 json_writer.write("{" + "\"steam_valid\" :[fail]}");
+				 
+				 // 關閉寫入
+				 json_writer.flush();
+				 json_writer.close();
 					
 				}else if (ReviewsTab_all_btn.size()>0) {
 					
@@ -140,8 +158,8 @@ public class Steam_check_valid {
 						review_array.add(review_obj);
 				
 
-					 // 建立抓取到遊戲評論的JSON檔
-					 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\"+collection.get("appid").toString()+".json");
+					 // 建立有效遊戲的JSON檔
+					 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\pass\\"+collection.get("appid").toString()+"_pass.json");
 					 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
 					 // 寫入JSON物件
