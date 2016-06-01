@@ -18,7 +18,7 @@ public class Control_hub {
 		try {
 
 			// 進行json檔案讀取
-			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\SteamGameList_2016_05_23.json");
+			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_05_23_clean.json");
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
@@ -41,8 +41,8 @@ public class Control_hub {
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
 						+ collection.get("name") + "** ");
 
-				Steam_review_scraper.do_steam_review_scraper_now(collection.get("appid").toString(), 200,
-						"C:\\Users\\John-Wall\\Desktop\\Steam_game\\" + collection.get("appid").toString() + ".json");
+				Steam_review_scraper.do_steam_review_scraper_now(collection.get("appid").toString(), 250,
+						"C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + collection.get("appid").toString() + ".json");
 
 			}
 			System.out.println("恭喜!終於全部的遊戲都抓完囉!");

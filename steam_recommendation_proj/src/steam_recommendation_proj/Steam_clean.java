@@ -8,14 +8,17 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Iterator;
-
+import java.util.List;
 import java.net.URL;
 
 import org.jsoup.Jsoup;
 
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,151 +31,75 @@ import org.jsoup.nodes.Document;
 public class Steam_clean {
 
 	public static void main(String[] args) {
-/*
+
+
 		try {
 
-			// 匯出json檔
-			// 建立Json Array
-			JSONArray review_array = new JSONArray();
+			// 進行json檔案讀取
+			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\SteamGameList_2016_05_23.json");
 
-			for (int i = 0; i < 3; i++) {
-
-				// 建立刷新Json物件
-				JSONObject review_obj = new JSONObject();
-
-				review_obj.put("姓名", "太神啦");
-				review_obj.put("人格特質", "神經質");
-
-				review_array.add(review_obj);
-			}
-
-			 // 建立抓取到遊戲評論的JSON檔
-			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\test.json");
-			 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
-
-			 // 寫入JSON物件
-			 json_writer.write("{" + "\"app\" :" + review_array.toJSONString() + "}");
-			 
-			 // 關閉寫入
-			 json_writer.flush();
-			 json_writer.close();
-
-			
-
-		} catch (IOException e) {
-			System.out.println(e.toString());
-		}
-*/
-		try {
-
-			// 讀取Steam總遊戲清單json檔
-			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\SteamGameList_2016_05_23_valid_raw.json");
-			JSONParser parser = new JSONParser();
-			JSONObject read_parser = (JSONObject) parser.parse(json_reader);
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
 
 			// 讀取steam遊戲清單(app)之陣列
-			JSONArray app = (JSONArray) read_parser.get("app");
+			JSONArray app = (JSONArray) jsonObject.get("app");
 
 			// 將JSONArray物件創建成Iterator迭代器
 			Iterator it = app.iterator();
 
-
-
 			int count = 0;
-			while (it.hasNext()) {
-				
-				JSONObject collection = (JSONObject) it.next();
 
-				/*
+			
+
+			
+			JSONArray game_array = new JSONArray();
+			
+			// 取出Iterator中的集合遊戲資料
+			while (it.hasNext()) {
+
+				count++;
+				
+JSONObject collection = (JSONObject) it.next();
 				// Debug訊息
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
-						+ collection.get("name").toString() + "** ");
-						
-						*/
-				
-				// 檢查是否為有效遊戲
-				File check_file_pass =new File("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\pass\\"+collection.get("appid").toString()+"_pass.json");
-				
-				
-				if ((check_file_pass.exists())&&(collection.get("name").toString().contains("DLC")||collection.get("name").toString().contains("Soundtrack")||(collection.get("name").toString().contains("Demo")&&!collection.get("name").toString().contains("Democ")&&!collection.get("name").toString().contains("Demoi")&&!collection.get("name").toString().contains("Demol")&&!collection.get("name").toString().contains("Demon"))||collection.get("name").toString().contains("Manual")||collection.get("name").toString().contains("Art Book"))) {
-					count++;
-					
-					// Debug
-					System.out.println("第"+count+"款遊戲，"+"此遊戲為無效遊戲!!!"+"因為此遊戲id為："+collection.get("appid").toString()+"此遊戲名稱為："+collection.get("name").toString());
-					
-					check_file_pass.delete();
-					
-					
-				}
-				
-				/*
-				// 進行判斷是否為有效遊戲
-				else {
-					
-				
-				
-				
-				
-				
-				URL url =new URL("http://store.steampowered.com/app/"+collection.get("appid").toString()+"/");
-				
-				
-				Document target_xml= Jsoup.parse(url,20000);
-				
-				Elements ReviewsTab_all_btn =target_xml.select("div#ReviewsTab_all");
-				
+						+ collection.get("name") + "** ");
 
 
-				if (ReviewsTab_all_btn.size()==0) {
-					
-					
-				// Debug
-				System.out.println("此遊戲"+collection.get("appid").toString()+"為Steam商城的無效遊戲!!因為沒有Most Helpful之按鈕");
+				File check_file_final =new File("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\pass check2\\"+collection.get("appid").toString()+"_pass_check2.json");
 				
-				 // 建立無效遊戲的JSON檔
-				 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\fail\\"+collection.get("appid").toString()+"_fail.json");
-				 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
-
-				 // 寫入JSON物件
-				 json_writer.write("{" + "\"steam_valid\" :[fail]}");
-				 
-				 // 關閉寫入
-				 json_writer.flush();
-				 json_writer.close();
-					
-				}else if (ReviewsTab_all_btn.size()>0) {
-					
-					
-					
 				
-					// Debug
-					System.out.println("此遊戲"+collection.get("appid").toString()+"為Steam商城的有效遊戲!!可以使用!!");
+				if (check_file_final.exists()) {
 					
-					// 匯出json檔
 					// 建立Json Array
-					JSONArray review_array = new JSONArray();
-
 					
+					// 建立刷新Json物件
+					JSONObject review_obj = new JSONObject();
+					// user_name 評論作者暱稱
+					review_obj.put("appid", collection.get("appid").toString());
 
-						// 建立刷新Json物件
-						JSONObject review_obj = new JSONObject();
+					// user_profile 評論作者個人檔案之url
+					review_obj.put("name", collection.get("name").toString());
 
-						review_obj.put("appid", collection.get("appid").toString());
-						review_obj.put("name", collection.get("name").toString());
+			
+					// 寫入Json物件與JsonArray
 
-						review_array.add(review_obj);
-				
+					game_array.add(review_obj);
+					
+					try {
+						// 建立抓取到遊戲評論的JSON檔
+						FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_05_23_clean.json");
+						Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
-					 // 建立有效遊戲的JSON檔
-					 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\pass\\"+collection.get("appid").toString()+"_pass.json");
-					 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
+						// 寫入JSON物件
+						json_writer.write("{" + "\"app\" :" + game_array.toJSONString() + "}");
 
-					 // 寫入JSON物件
-					 json_writer.write("{" + "\"steam_valid\" :" + review_array.toJSONString() + "}");
-					 
-					 // 關閉寫入
-					 json_writer.flush();
-					 json_writer.close();
+						// 關閉寫入
+						json_writer.flush();
+						json_writer.close();
+					} catch (Exception e) {
+						System.out.println(e.toString());
+					}
+
 					
 					
 					
@@ -180,21 +107,16 @@ public class Steam_clean {
 					
 					
 				}
-			}*/
+				
+				
+				
+				
+				
+				
+
 
 			}
-			
-			
-			
-			
-		
-			
-			
-
-		
-			
-			
-			
+			System.out.println("恭喜!終於全部的遊戲都抓完囉!");
 
 		} catch (
 
@@ -207,7 +129,10 @@ public class Steam_clean {
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());
 		}
-
+		
+		
+		
+		
 	}
 
 }
