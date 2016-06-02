@@ -1,5 +1,6 @@
 package steam_recommendation_proj;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,9 +41,41 @@ public class Control_hub {
 				// Debug訊息
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
 						+ collection.get("name") + "** ");
+				
+                // 檢查是否已經有抓完評論
+				File check_file = new File("C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\"+collection.get("appid").toString()+".json");
+				
+				
+				if (check_file.exists()) {
+					
+					
+				// Debug訊息
+				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
+							+ collection.get("name") + "** "+"此遊戲已經抓過評論囉!!!!!!!!!!");
+					
+					
+					
+				}else {
+					
+					
+					Steam_review_scraper.do_steam_review_scraper_now(collection.get("appid").toString(), 250,
+							"C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + collection.get("appid").toString() + ".json");
+					
+					// 等待3秒讀取
+					try {
+						Thread.sleep(3000);
+					} catch (Exception e) {
 
-				Steam_review_scraper.do_steam_review_scraper_now(collection.get("appid").toString(), 250,
-						"C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + collection.get("appid").toString() + ".json");
+						System.out.println(e);
+
+					}
+					
+				}
+				
+				
+				
+				
+				
 
 			}
 			System.out.println("恭喜!終於全部的遊戲都抓完囉!");
