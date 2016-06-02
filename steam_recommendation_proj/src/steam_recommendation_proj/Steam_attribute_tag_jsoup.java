@@ -49,13 +49,16 @@ public class Steam_attribute_tag_jsoup {
 
 			int count = 0;
 
-			// 要存遊戲屬性tag用
-			JSONArray tag_array = new JSONArray();
+	
 
 			// 取出Iterator中的集合遊戲資料
 			while (it.hasNext()) {
 
-				count++;
+				count++;		
+				
+				
+			// 要存遊戲屬性tag用
+			JSONArray tag_array = new JSONArray();
 
 				JSONObject collection = (JSONObject) it.next();
 				// Debug訊息
@@ -63,7 +66,7 @@ public class Steam_attribute_tag_jsoup {
 						+ collection.get("name").toString() + "** ");
 
 				File check_tag_file = new File(
-						"C:\\Users\\John-Wall\\Desktop\\" + collection.get("appid").toString() + "_attribute_tag.json");
+						"C:\\Users\\John-Wall\\Desktop\\Steam_game_tag\\" + collection.get("appid").toString() + "_attribute_tag.json");
 
 				if (!check_tag_file.exists()) {
                     
