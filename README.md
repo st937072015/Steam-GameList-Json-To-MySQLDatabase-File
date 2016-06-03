@@ -44,7 +44,7 @@ Steam評論scraper呼叫類別功能完成
 
 直接呼叫 Steam_review_scraper.java 類別function：
 
-Steam_review_scraper.do_steam_review_scraper_now("appid", review_number, "json_export_path");
+Steam_review_scraper.do_steam_review_scraper_now("appid", review_sample_size, "json_export_path");
 
 ------------------------------------------------
 

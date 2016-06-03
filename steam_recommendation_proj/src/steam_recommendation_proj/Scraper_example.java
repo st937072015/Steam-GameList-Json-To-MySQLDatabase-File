@@ -18,7 +18,7 @@ public class Scraper_example {
 
 		
 					// test
-		            // ex: Steam_review_scraper.do_steam_review_scraper_now(String appid, int review sample size , String json file output path)
+		            // ex: Steam_review_scraper.do_steam_review_scraper_now(String appid, int review sample size, String json file output path)
 					Steam_review_scraper.do_steam_review_scraper_now("282350", 250, "C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\282350.json");
 					
 		
