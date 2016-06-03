@@ -1,10 +1,11 @@
 package steam_recommendation_proj;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.io.InputStreamReader;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -12,7 +13,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class Control_hub {
+public class Run_window_cmd {
 
 	public static void main(String[] args) {
 
@@ -39,6 +40,7 @@ public class Control_hub {
 				JSONObject collection = (JSONObject) it.next();
 
 				// Debug訊息
+				System.out.print("-----------------------------------------------------------------------------------");
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
 						+ collection.get("name") + "** ");
 				
@@ -52,23 +54,40 @@ public class Control_hub {
 				// Debug訊息
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
 							+ collection.get("name") + "** "+"此遊戲已經抓過評論囉!!!!!!!!!!");
-					
+				System.out.print("-----------------------------------------------------------------------------------");	
 					
 					
 				}else {
 					
 					
-					Steam_review_scraper.do_steam_review_scraper_now(collection.get("appid").toString(), 250,
-							"C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + collection.get("appid").toString() + ".json");
 					
-					// 等待3秒讀取
-					try {
-						Thread.sleep(3000);
-					} catch (Exception e) {
-
-						System.out.println(e);
-
-					}
+					
+				
+						
+						
+						Process run_cmd =Runtime.getRuntime().exec("python D:\\Python\\Steamnew_2016_05_06\\steam-scraper\\steam_scraper.py --appid " + collection.get("appid").toString() + " -o C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + collection.get("appid").toString() + ".json --sample 3");
+                        run_cmd.waitFor();
+						
+						BufferedReader reader = new BufferedReader(new InputStreamReader(run_cmd.getInputStream())); 
+						String line;
+						while ( (line =reader.readLine())!=null) {
+							
+							
+							
+							 System.out.println(line);
+							 
+							 
+							 
+						}
+						
+						System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
+								+ collection.get("name") + "** "+"此遊戲的指定數量評論已抓完!");
+		
+					
+					
+					
+					
+		
 					
 				}
 				
@@ -90,6 +109,10 @@ public class Control_hub {
 			System.out.println(e.toString());
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());
+		}catch (InterruptedException e) {
+			
+			System.out.println(e);
+			
 		}
 
 	}

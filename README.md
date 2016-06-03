@@ -50,7 +50,7 @@ Steam_review_scraper.do_steam_review_scraper_now("appid", review_number, "json_e
 
 appid = Steam的遊戲id編號
 
-review_number = 指定抓取評論內容之數量
+review_sample_size = 指定抓取評論內容之數量
 
 json_export_path = 指定json檔案輸出路徑
 
