@@ -61,7 +61,14 @@ public class Control_hub {
 					Steam_review_scraper.do_steam_review_scraper_now(collection.get("appid").toString(), 250,
 							"C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + collection.get("appid").toString() + ".json");
 					
-	
+					// 等待3秒讀取
+					try {
+						Thread.sleep(3000);
+					} catch (Exception e) {
+
+						System.out.println(e);
+
+					}
 					
 				}
 				

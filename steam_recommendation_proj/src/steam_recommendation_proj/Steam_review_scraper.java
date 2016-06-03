@@ -43,14 +43,6 @@ public class Steam_review_scraper {
 
 			// 直接關閉火狐瀏覽器
 			firefoxdrive.close();
-			// 等待3秒讀取
-			try {
-				Thread.sleep(3000);
-			} catch (Exception e) {
-
-				System.out.println(e);
-
-			}
 
 		}
 		// 若Most Helpful 與 Load More按鈕不存在就直接歸類為無效遊戲
@@ -63,14 +55,6 @@ public class Steam_review_scraper {
 
 			// 直接關閉火狐瀏覽器
 			firefoxdrive.close();
-			// 等待3秒讀取
-			try {
-				Thread.sleep(3000);
-			} catch (Exception e) {
-
-				System.out.println(e);
-
-			}
 
 			// 確認語言按鈕點擊
 		} else if (firefoxdrive.findElements(By.id("language_pulldown")).size() > 0) {
@@ -112,14 +96,6 @@ public class Steam_review_scraper {
 
 			// 直接關閉火狐瀏覽器
 			firefoxdrive.close();
-			// 等待3秒讀取
-			try {
-				Thread.sleep(3000);
-			} catch (Exception e) {
-
-				System.out.println(e);
-
-			}
 
 		} else {
 
@@ -337,14 +313,6 @@ public class Steam_review_scraper {
 
 						// 直接關閉火狐瀏覽器
 						firefoxdrive.close();
-						// 等待3秒讀取
-						try {
-							Thread.sleep(3000);
-						} catch (Exception e) {
-
-							System.out.println(e);
-
-						}
 
 						break;
 
@@ -354,14 +322,6 @@ public class Steam_review_scraper {
 
 				// 抓取完畢後關閉火狐瀏覽器
 				firefoxdrive.close();
-				// 等待3秒讀取
-				try {
-					Thread.sleep(3000);
-				} catch (Exception e) {
-
-					System.out.println(e);
-
-				}
 
 			} else {
 
@@ -450,14 +410,6 @@ public class Steam_review_scraper {
 
 					// 抓取完畢後關閉火狐瀏覽器
 					firefoxdrive.close();
-					// 等待3秒讀取
-					try {
-						Thread.sleep(3000);
-					} catch (Exception e) {
-
-						System.out.println(e);
-
-					}
 
 				} else if (count > review_number) {
 					// 評論文字內容
@@ -550,14 +502,6 @@ public class Steam_review_scraper {
 
 					// 抓取完畢後關閉火狐瀏覽器
 					firefoxdrive.close();
-					// 等待3秒讀取
-					try {
-						Thread.sleep(3000);
-					} catch (Exception e) {
-
-						System.out.println(e);
-
-					}
 
 				} else if (count < review_number
 						&& firefoxdrive.findElements(By.className("no_more_reviews")).size() > 0
@@ -568,14 +512,6 @@ public class Steam_review_scraper {
 
 					// 直接關閉火狐瀏覽器
 					firefoxdrive.close();
-					// 等待3秒讀取
-					try {
-						Thread.sleep(3000);
-					} catch (Exception e) {
-
-						System.out.println(e);
-
-					}
 
 				}
 
