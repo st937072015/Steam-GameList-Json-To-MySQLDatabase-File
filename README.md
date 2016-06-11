@@ -75,10 +75,15 @@ json_export_path = 指定json檔案輸出路徑
 刪除Steam_valid資料夾 將處理完畢的遊戲清單json檔集中
 
 Steam_json資料夾中包含:
+
 1.clean_finish資料夾
+
 2.raw資料夾
+
 3.review_250_sample_list資料夾
 
 第1個資料夾中的json檔為淨化過後刪除雜七雜八無效id且確定都有評論可以抓的遊戲總清單
+
 第2個資料夾中的json檔為Steam元史未淨化的json檔
+
 第3個資料夾中的json檔為評論數確定至少有250筆的遊戲清單
