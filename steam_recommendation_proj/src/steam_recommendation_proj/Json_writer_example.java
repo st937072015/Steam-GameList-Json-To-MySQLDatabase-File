@@ -1,5 +1,6 @@
 package steam_recommendation_proj;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -69,7 +70,12 @@ public class Json_writer_example {
 
 				System.out.println("第"+count+"款遊戲，"+"遊戲id為:" + collection.get("appid").toString() + "，" + "遊戲名稱為:"
 						+ collection.get("name").toString());
-
+				
+				File file = new File("C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\"+collection.get("appid").toString()+".json");
+                
+				file.delete();
+				
+				
 			}
 
 		} catch (

@@ -36,13 +36,13 @@ public class Steam_attribute_tag_jsoup {
 
 			// 進行有效遊戲的json檔案讀取
 			FileReader steamreader = new FileReader(
-					"C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_05_23_clean.json");
+					"C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_06_11_sample_250.json");
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
 
 			// 讀取steam遊戲清單(app)之陣列
-			JSONArray app = (JSONArray) jsonObject.get("app");
+			JSONArray app = (JSONArray) jsonObject.get("app_sample_250");
 
 			// 將JSONArray物件創建成Iterator迭代器
 			Iterator it = app.iterator();
