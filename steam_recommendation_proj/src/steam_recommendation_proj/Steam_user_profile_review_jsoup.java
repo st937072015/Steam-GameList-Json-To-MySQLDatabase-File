@@ -57,7 +57,7 @@ public class Steam_user_profile_review_jsoup {
 			
                     
 					// 執行jsoup動作
-					URL url = new URL("http://steamcommunity.com/id/dailenth666/recommended/?p=1");
+					URL url = new URL("http://steamcommunity.com/profiles/76561198000365424/recommended/?p=1");
 
 					Document target_xml = Jsoup.parse(url, 20000);
 
