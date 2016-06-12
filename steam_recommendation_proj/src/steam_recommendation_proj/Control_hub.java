@@ -40,7 +40,7 @@ public class Control_hub {
 
 				// Debug訊息
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
-						+ collection.get("name") + "** ");
+						+ collection.get("name").toString() + "** ");
 				
                 // 檢查是否已經有抓完評論
 				File check_file = new File("C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\"+collection.get("appid").toString()+".json");
@@ -51,7 +51,7 @@ public class Control_hub {
 					
 				// Debug訊息
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
-							+ collection.get("name") + "** "+"此遊戲已經抓過評論囉!!!!!!!!!!");
+							+ collection.get("name").toString() + "** "+"此遊戲已經抓過評論囉!!!!!!!!!!");
 					
 					
 					

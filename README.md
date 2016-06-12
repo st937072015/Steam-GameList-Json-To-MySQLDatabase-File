@@ -2,6 +2,27 @@
 
 Steam-Json-Convert-MySQL-Database-And-Scraper
 
+Want to scrape reviews automatically from steam?
+
+This can help you to finish you want!
+
+------------------------------------------------
+
+For steam game review --> (*appid(ex:Steam NBA 2K16 appid is 370240) *sample size *.json file export path)
+
+For steam user profile review --> (*user_profile_index(ex:http://steamcommunity.com/id/xxx/ or http://steamcommunity.com/profiles/xxx/) *.json file export path)
+
+Usage:
+
+Call "Steam_review_scraper.java" class function：
+
+function --> Steam_review_scraper.do_steam_review_scraper_now("appid", "review_sample_size", "json_export_path");
+
+
+Call "Steam_review_scraper.java" class function：
+
+function --> Steam_user_profile_review_jsoup.do_scraper_user_profile_review("user_profile_index", "user_profile_json_output_path");
+
 ------------------------------------------------
 
 Requirement :
@@ -10,11 +31,15 @@ json-simple jar lib
 
 jsoup jar lib
 
-mysql-connector-java jar lib
-
 selenium-java jar lib
 
 selenium-server-standalone jar lib
+
+------------------------------------------------
+
+------------------------------------------------
+
+*Work record*:
 
 ------------------------------------------------
 
@@ -37,14 +62,6 @@ Steam遊戲平台的遊戲清單json檔轉換處理後
 2016/05/30
 
 Steam評論scraper呼叫類別功能完成 
-
-(*可自訂遊戲的appid(例如Steam NBA 2K16的appid為370240) *可自訂抓取需求數 *Export成.json檔案 *指定輸出路徑)
-
-使用方式:
-
-直接呼叫 Steam_review_scraper.java 類別function：
-
-Steam_review_scraper.do_steam_review_scraper_now("appid", review_sample_size, "json_export_path");
 
 ------------------------------------------------
 
