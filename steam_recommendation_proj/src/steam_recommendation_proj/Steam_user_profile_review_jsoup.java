@@ -41,6 +41,12 @@ public class Steam_user_profile_review_jsoup {
 
 			List<Element> user_profile_game_review_count = target_xml
 					.select("div.review_stat > div.giantNumber.ellipsis");
+			List<Element> user_profile_private_info = target_xml
+					.select("div.profile_private_info");
+
+			if (user_profile_game_review_count.size() > 0 && user_profile_private_info.size()== 0) {
+
+			
 
 			// 儲存所有頁數評論元素的list
 			List<Element> user_profile_game_all_review = new ArrayList<Element>();
@@ -100,7 +106,15 @@ public class Steam_user_profile_review_jsoup {
 
 			System.out.println("恭喜!終於所指定的Steam使用者所屬之全部的遊戲評論都抓完囉!");
 			System.out.println("-----------------------------------------");
-
+			
+			
+			}else{
+				
+				System.out.println("此評論使用者已經變為無效評論使用者了!");
+				
+			}
+			
+			
 		} catch (
 
 		FileNotFoundException e) {
@@ -110,6 +124,7 @@ public class Steam_user_profile_review_jsoup {
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());
 		}
+		
 
 	}
 
