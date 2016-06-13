@@ -31,7 +31,7 @@ public class Steam_user_profile_review_jsoup {
 			List<Element> user_profile_review_valid = target_xml
 					.select("div.rightcol > div.content");
 
-			if (user_profile_game_review_count.size() > 0 && user_profile_review_valid.size()== 0) {
+			if (user_profile_game_review_count.size() > 0 && user_profile_review_valid.size() > 0) {
 
 			
 
