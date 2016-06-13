@@ -1,33 +1,20 @@
 package steam_recommendation_proj;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Steam_user_profile_review_jsoup {
 	public void do_scraper_user_profile_review(String user_profile_index, String user_profile_json_output_path) {
@@ -41,10 +28,10 @@ public class Steam_user_profile_review_jsoup {
 
 			List<Element> user_profile_game_review_count = target_xml
 					.select("div.review_stat > div.giantNumber.ellipsis");
-			List<Element> user_profile_private_info = target_xml
-					.select("div.profile_private_info");
+			List<Element> user_profile_review_valid = target_xml
+					.select("div.rightcol > div.content");
 
-			if (user_profile_game_review_count.size() > 0 && user_profile_private_info.size()== 0) {
+			if (user_profile_game_review_count.size() > 0 && user_profile_review_valid.size()== 0) {
 
 			
 
@@ -111,6 +98,7 @@ public class Steam_user_profile_review_jsoup {
 			}else{
 				
 				System.out.println("此評論使用者已經變為無效評論使用者了!");
+				System.out.println("-----------------------------------------");
 				
 			}
 			

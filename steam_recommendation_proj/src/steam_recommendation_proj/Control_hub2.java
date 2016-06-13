@@ -52,6 +52,7 @@ public class Control_hub2 {
 				// Debug訊息
 				System.out.println("第" + count + "評論使用者，使用者的id為 **" + collection.get("id").toString() + "** " + "使用者的Profile為 **"
 						+ collection.get("user_profile").toString() + "** "+"此評論使用者已經抓過評論囉!!!!!!!!!!");
+				System.out.println("-----------------------------------------");
 					
 					
 					
