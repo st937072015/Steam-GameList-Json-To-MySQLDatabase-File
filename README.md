@@ -19,7 +19,7 @@ Call "Steam_review_scraper.java" class function：
 function --> Steam_review_scraper.do_steam_review_scraper_now("appid", "review_sample_size", "json file export path");
 
 
-Call "Steam_review_scraper.java" class function：
+Call "Steam_user_profile_review_jsoup.java" class function：
 
 function --> Steam_user_profile_review_jsoup.do_scraper_user_profile_review("user_profile_index", "json file export path");
 
