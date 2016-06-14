@@ -21,7 +21,7 @@ function --> Steam_review_scraper.do_steam_review_scraper_now("appid", "review_s
 
 Call "Steam_review_scraper.java" class function：
 
-function --> Steam_user_profile_review_jsoup.do_scraper_user_profile_review("user_profile_index", "user_profile_json_output_path");
+function --> Steam_user_profile_review_jsoup.do_scraper_user_profile_review("user_profile_index", "json file export path");
 
 ------------------------------------------------
 
