@@ -16,7 +16,7 @@ For steam user profile review --> (*user_profile_index(ex:http://steamcommunity.
 
 Call "Steam_review_scraper.java" class function：
 
-function --> Steam_review_scraper.do_steam_review_scraper_now("appid", "review_sample_size", "json_export_path");
+function --> Steam_review_scraper.do_steam_review_scraper_now("appid", "review_sample_size", "json file export path");
 
 
 Call "Steam_review_scraper.java" class function：
