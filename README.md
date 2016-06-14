@@ -1,10 +1,10 @@
 ------------------------------------------------
 
-Steam-Json-Convert-MySQL-Database-And-Scraper
+# Steam-Json-Convert-MySQL-Database-And-Scraper
 
-Want to scrape reviews automatically from steam?
+###### Want to scrape reviews automatically from steam?
 
-This can help you to finish you want!
+###### This can help you to finish you want!
 
 ------------------------------------------------
 
@@ -12,7 +12,7 @@ For steam game review --> (*appid(ex:Steam NBA 2K16 appid is 370240) *sample siz
 
 For steam user profile review --> (*user_profile_index(ex:http://steamcommunity.com/id/xxx/ or http://steamcommunity.com/profiles/xxx/) *.json file export path)
 
-Usage:
+# Usage:
 
 Call "Steam_review_scraper.java" class function：
 
@@ -25,7 +25,7 @@ function --> Steam_user_profile_review_jsoup.do_scraper_user_profile_review("use
 
 ------------------------------------------------
 
-Requirement :
+# Requirement :
 
 json-simple jar lib
 
@@ -39,11 +39,11 @@ selenium-server-standalone jar lib
 
 ------------------------------------------------
 
-*Work record*:
+## *Work record*:
 
 ------------------------------------------------
 
-2016/05/16
+## 2016/05/16
 
 透過Java的json-simple將著名的
 Steam遊戲平台的遊戲清單json檔轉換處理後
@@ -51,7 +51,7 @@ Steam遊戲平台的遊戲清單json檔轉換處理後
 
 ------------------------------------------------
 
-2016/05/28
+## 2016/05/28
 
 增加Steam遊戲屬性標籤scraper功能
 
@@ -59,7 +59,7 @@ Steam遊戲平台的遊戲清單json檔轉換處理後
 
 ------------------------------------------------
 
-2016/05/30
+## 2016/05/30
 
 Steam評論scraper呼叫類別功能完成 
 
@@ -73,13 +73,13 @@ json_export_path = 指定json檔案輸出路徑
 
 ------------------------------------------------
 
-2016/05/31
+## 2016/05/31
 
 開始進行有效遊戲與無效遊戲清理淨化
 
 ------------------------------------------------
 
-2016/06/02
+## 2016/06/02
 
 將Steam官方一共(25715)筆遊戲id進行淨化篩選清理處理後剩為(8000)多筆有效遊戲
 
@@ -87,7 +87,7 @@ json_export_path = 指定json檔案輸出路徑
 
 ------------------------------------------------
 
-2016/06/11
+## 2016/06/11
 
 刪除Steam_valid資料夾 將處理完畢的遊戲清單json檔集中
 
@@ -111,7 +111,7 @@ Steam_json資料夾中包含:
 
 ------------------------------------------------
 
-2016/06/12
+## 2016/06/12
 
 自動抓取指定steam使用者所屬全部評論功能完成
 
