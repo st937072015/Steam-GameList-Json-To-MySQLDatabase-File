@@ -1,6 +1,6 @@
 ------------------------------------------------
 
-# Steam-Json-Convert-MySQL-Database-And-Scraper
+# Steam-Review-Scraper
 
 ###### Want to scrape reviews automatically from steam?
 
