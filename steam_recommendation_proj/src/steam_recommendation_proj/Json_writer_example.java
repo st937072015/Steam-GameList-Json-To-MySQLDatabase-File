@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -17,9 +18,15 @@ import org.json.simple.parser.ParseException;
 public class Json_writer_example {
 
 	public static void main(String[] args) {
+/*
+		try {
 
-		/*try {
-
+			
+			ArrayList<String>test=new ArrayList<String>();
+			test.add("楊新章");
+			test.add("許家齊");
+			test.add("尤柏翰");
+			
 			// 匯出json檔
 			// 建立Json Array
 			JSONArray review_array = new JSONArray();
@@ -29,8 +36,7 @@ public class Json_writer_example {
 				// 建立刷新Json物件
 				JSONObject review_obj = new JSONObject();
 
-				review_obj.put("姓名", "太神啦");
-				review_obj.put("人格特質", "神經質");
+				review_obj.put("評論", test);
 
 				review_array.add(review_obj);
 			}
@@ -50,30 +56,40 @@ public class Json_writer_example {
 
 		} catch (IOException e) {
 			System.out.println(e.toString());
-		}*/
+		}
+		
+		*/
 
 		try {
 
 			// 讀取測試json檔
-			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_06_11_sample_250.json");
+			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\test.json");
 			JSONParser parser = new JSONParser();
 			JSONObject read_parser = (JSONObject) parser.parse(json_reader);
 
-			JSONArray review_array = (JSONArray) read_parser.get("app_sample_250");
-
+			JSONArray review_array = (JSONArray) read_parser.get("app");
 			Iterator it = review_array.iterator();
 
 			int count = 0;
 			while (it.hasNext()) {
 				count++;
 				JSONObject collection = (JSONObject) it.next();
-
-				System.out.println("第"+count+"款遊戲，"+"遊戲id為:" + collection.get("appid").toString() + "，" + "遊戲名稱為:"
-						+ collection.get("name").toString());
+                 
 				
-				File file = new File("C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\"+collection.get("appid").toString()+".json");
-                
-				file.delete();
+				
+				
+				//System.out.println("第"+count+"款遊戲，"+"遊戲id為:"+collection.get("評論").toString());
+				
+				JSONArray review_arraylist = (JSONArray) collection.get("評論");
+				
+	           for (int i = 0; i < review_arraylist.size(); i++) {
+	        	   
+	        	   System.out.println(review_arraylist.get(i));
+	        	   
+				
+			}
+	           
+				
 				
 				
 			}

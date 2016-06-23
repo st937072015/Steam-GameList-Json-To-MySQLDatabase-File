@@ -31,6 +31,10 @@ public class Lucene_simple_analyzer {
 			while (tokenstream.incrementToken()) {
 				// System.out.println(chartermattribute);
 				text_token_store.add(chartermattribute.toString());
+				
+				
+				
+				
 			}
 
 			// 關閉釋放
