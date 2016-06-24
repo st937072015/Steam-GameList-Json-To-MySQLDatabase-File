@@ -30,8 +30,20 @@ public class Lucene_standard_analyzer {
 			while (tokenstream.incrementToken()) {
 				// System.out.println(chartermattribute);
 				
-				// 將所有斷詞之結果塞入到指定的字串arraylist
-				add_text_token.add(chartermattribute.toString());
+				Sign_add_and_clean clean =new Sign_add_and_clean();
+				
+				
+				// 假如斷詞之後的字詞不為英文字母就塞入arraylist之中
+				if (!clean.word_clean(chartermattribute.toString())) {
+					
+					
+					// 將所有斷詞之結果塞入到指定的字串arraylist
+					
+					add_text_token.add(chartermattribute.toString());
+					
+				}
+				
+				
 				
 				
 				

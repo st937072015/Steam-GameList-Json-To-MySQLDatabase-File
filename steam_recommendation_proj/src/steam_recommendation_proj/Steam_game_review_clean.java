@@ -21,7 +21,7 @@ public class Steam_game_review_clean {
 
 			
 			// 進行已過濾的遊戲id之json檔案讀取
-			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\" + appid + ".json");
+			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + appid + ".json");
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
@@ -29,8 +29,7 @@ public class Steam_game_review_clean {
 			// 讀取有250筆評論的steam遊戲之所有評論
 			JSONArray game_review = (JSONArray) jsonObject.get("steam_review");
 			
-			// 建立儲存斷詞淨化後評論的arraylist
-			ArrayList<String>store_arraylist=new ArrayList<String>();
+		
 
 			// 將JSONArray物件創建成Iterator迭代器
 			Iterator it = game_review.iterator();
@@ -47,15 +46,16 @@ public class Steam_game_review_clean {
 				
 				JSONObject collection = (JSONObject) it.next();
                 
-				
+			    // 建立儲存斷詞淨化後評論的arraylist
+			    ArrayList<String>store_arraylist=new ArrayList<String>();
 			
-				// 進行字串全形轉換為半形
+				// 進行字串全形轉換為半形與移除阿拉伯數字
 				Big_string_convert convert = new Big_string_convert();
 				
 				String review_content = convert.go_big_string_convert(collection.get("review_content").toString());
 				 
 			   // 進行將特殊符號加入到arraylist
-			   Sign_add sign_add = new Sign_add();
+			   Sign_add_and_clean sign_add = new Sign_add_and_clean();
 			   sign_add.string_arraylist_add_sign(review_content, ",", store_arraylist);
 			   sign_add.string_arraylist_add_sign(review_content, "!", store_arraylist);
 			   sign_add.string_arraylist_add_sign(review_content, "?", store_arraylist);
