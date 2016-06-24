@@ -68,17 +68,21 @@ public class Steam_game_review_clean {
 				
 			   analyzer.use_standardanalyzer(review_content, store_arraylist);
 				
-
-			   JSONObject game_review_obj = new JSONObject();
+			   // 若斷詞後的評論arraylist不為空
+               if (!store_arraylist.isEmpty()) {
+            	   
+				JSONObject game_review_obj = new JSONObject();
 
 			   // 塞入抓取到的評論
 			   game_review_obj.put("review_content", store_arraylist);
 			   game_review_array.add(game_review_obj);
+			}
+			   
 
 			}
 
 			// 建立淨化後遊戲評論的JSON檔
-			FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean"+appid+".json");
+			FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\"+appid+".json");
 			Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
 			// 寫入JSON物件

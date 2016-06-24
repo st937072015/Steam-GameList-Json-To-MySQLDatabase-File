@@ -18,14 +18,12 @@ import org.json.simple.parser.ParseException;
 public class Json_writer_example {
 
 	public static void main(String[] args) {
-/*
+
 		try {
 
 			
 			ArrayList<String>test=new ArrayList<String>();
-			test.add("楊新章");
-			test.add("許家齊");
-			test.add("尤柏翰");
+
 			
 			// 匯出json檔
 			// 建立Json Array
@@ -58,8 +56,8 @@ public class Json_writer_example {
 			System.out.println(e.toString());
 		}
 		
-		*/
-
+		
+/*
 		try {
 
 			// 讀取測試json檔
@@ -105,7 +103,7 @@ public class Json_writer_example {
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());
 		}
-
+*/
 	}
 
 }

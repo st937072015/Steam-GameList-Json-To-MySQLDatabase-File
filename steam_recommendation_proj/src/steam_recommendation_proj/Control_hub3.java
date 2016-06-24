@@ -18,7 +18,7 @@ public class Control_hub3 {
 		try {
 
 			// 進行已過濾的遊戲id之json檔案讀取
-			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_user_list\\Steam_user_list.json");
+			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_06_11_sample_250.json");
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
@@ -46,30 +46,22 @@ public class Control_hub3 {
 				File check_file = new File("C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\"+collection.get("appid").toString()+".json");
 				
 				
-				if (check_file.exists()) {
-					
-					
-				// Debug訊息
-				System.out.println("第" + count + "遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名稱為 **"
-							+ collection.get("name").toString() + "** "+"，此遊戲的評論已經淨化過囉！");
-				System.out.println("-----------------------------------------");
-					
-					
-					
-				}else {
-					
-					
-					Steam_user_profile_review_jsoup do_user_profile_review =new Steam_user_profile_review_jsoup();
-					
-					
-					
-					
-					
-					
-					do_user_profile_review.do_scraper_user_profile_review(collection.get("user_profile").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_user_review\\"+collection.get("id").toString()+".json");
+				if (!check_file.exists()) {
 					
 					
 
+					
+					Steam_game_review_clean clean = new Steam_game_review_clean();
+					
+					clean.do_game_review_clean(collection.get("appid").toString());
+					
+				}else{
+					
+					// Debug訊息
+					System.out.println("第" + count + "遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名稱為 **"
+								+ collection.get("name").toString() + "** "+"，此遊戲的評論已經淨化過囉！");
+					System.out.println("-----------------------------------------");
+					
 				}
 				
 				
