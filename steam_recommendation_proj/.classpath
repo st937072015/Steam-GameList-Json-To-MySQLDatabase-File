@@ -7,7 +7,8 @@
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/selenium-java-2.53.0.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/selenium-server-standalone-2.53.0.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jsoup-1.9.2.jar"/>
-	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/lucene-core-6.1.0.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/lucene-analyzers-common-6.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/lucene-core-6.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/commons-lang3-3.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
