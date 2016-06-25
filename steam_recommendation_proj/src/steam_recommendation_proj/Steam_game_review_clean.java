@@ -14,20 +14,20 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 public class Steam_game_review_clean {
-	public void do_game_review_clean(String appid) {
+	public void do_game_review_clean(String read_analyze_file_path, String output_analyze_file_path, String read_analyze_file_json_object, String analyze_collection_text_name,String write_analyze_file_json_object,  String debug_message) {
 
 		try {
 
 
 			
-			// 進行已過濾的遊戲id之json檔案讀取
-			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + appid + ".json");
+			// 進行要進行文字分析之json檔案讀取
+			FileReader steamreader = new FileReader(read_analyze_file_path);
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
 
-			// 讀取有250筆評論的steam遊戲之所有評論
-			JSONArray game_review = (JSONArray) jsonObject.get("steam_review");
+			// 讀取所有文字資料
+			JSONArray game_review = (JSONArray) jsonObject.get(read_analyze_file_json_object);
 			
 		
 
@@ -52,7 +52,7 @@ public class Steam_game_review_clean {
 				// 進行字串全形轉換為半形與移除阿拉伯數字
 				Big_string_convert convert = new Big_string_convert();
 				
-				String review_content = convert.go_big_string_convert(collection.get("review_content").toString());
+				String review_content = convert.go_big_string_convert(collection.get(analyze_collection_text_name).toString());
 				 
 			   // 進行將特殊符號加入到arraylist
 			   Sign_add_and_clean sign_add = new Sign_add_and_clean();
@@ -68,31 +68,31 @@ public class Steam_game_review_clean {
 				
 			   analyzer.use_standardanalyzer(review_content, store_arraylist);
 				
-			   // 若斷詞後的評論arraylist不為空
+			   // 若斷詞後的文字資料arraylist不為空
                if (!store_arraylist.isEmpty()) {
             	   
 				JSONObject game_review_obj = new JSONObject();
 
-			   // 塞入抓取到的評論
-			   game_review_obj.put("review_content", store_arraylist);
+			   // 塞入抓取到的文字資料
+			   game_review_obj.put(analyze_collection_text_name, store_arraylist);
 			   game_review_array.add(game_review_obj);
 			}
 			   
 
 			}
 
-			// 建立淨化後遊戲評論的JSON檔
-			FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\"+appid+".json");
+			// 建立淨化分析後的文字資料JSON檔
+			FileOutputStream fos = new FileOutputStream(output_analyze_file_path);
 			Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
 			// 寫入JSON物件
-			json_writer.write("{" + "\"steam_game_review_clean\" :" + game_review_array.toJSONString() + "}");
+			json_writer.write("{" + "\"" + write_analyze_file_json_object + "\" :" + game_review_array.toJSONString() + "}");
 
 			// 關閉寫入
 			json_writer.flush();
 			json_writer.close();
 
-			System.out.println("恭喜!遊戲id為："+appid+"的遊戲淨化完囉!");
+			System.out.println(debug_message);
 			System.out.println("-----------------------------------------");
 			
 

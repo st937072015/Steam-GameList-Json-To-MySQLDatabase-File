@@ -23,7 +23,7 @@ public class Control_hub3 {
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
 
-			// 讀取有250筆評論的steam遊戲之id arraylist
+			// 讀取有250筆評論的steam遊戲之id物件arraylist
 			JSONArray app = (JSONArray) jsonObject.get("app_sample_250");
 
 			// 將JSONArray物件創建成Iterator迭代器
@@ -32,7 +32,7 @@ public class Control_hub3 {
 
 			int count = 0;
 
-			// 取出Iterator中的集合使用者資料
+			// 取出Iterator中的集合遊戲資料
 			while (it.hasNext()) {
 
 				count++;
@@ -53,7 +53,7 @@ public class Control_hub3 {
 					
 					Steam_game_review_clean clean = new Steam_game_review_clean();
 					
-					clean.do_game_review_clean(collection.get("appid").toString());
+					clean.do_game_review_clean("C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\" + collection.get("appid").toString() + ".json", "C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\"+collection.get("appid").toString()+".json", "steam_review", "review_content", "steam_game_review_clean", "恭喜遊戲id："+collection.get("appid").toString()+"已經分析斷詞完囉!");
 					
 				}else{
 					

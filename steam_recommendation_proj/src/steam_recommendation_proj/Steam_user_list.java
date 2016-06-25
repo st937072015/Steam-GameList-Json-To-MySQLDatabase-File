@@ -23,14 +23,14 @@ public class Steam_user_list {
 
 		try {
 
-			// 讀取抓取到的評論json檔
+            // 讀取遊戲清單
 			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_06_11_sample_250.json");
 			JSONParser parser = new JSONParser();
 			JSONObject read_parser = (JSONObject) parser.parse(json_reader);
 
-			JSONArray review_array = (JSONArray) read_parser.get("app_sample_250");
+			JSONArray gamelist_250_array = (JSONArray) read_parser.get("app_sample_250");
 
-			Iterator it = review_array.iterator();
+			Iterator it = gamelist_250_array.iterator();
 			
 			Set<String> user_set = new HashSet<String>();
 			
@@ -38,7 +38,7 @@ public class Steam_user_list {
 			
             int review_count = 0;
             
-			// 讀取評論數至少有250筆的遊戲清單json檔
+			// 讀取評論數至少有250筆的遊戲detail之json檔
 			while (it.hasNext()) {
 				count++;
 				JSONObject collection = (JSONObject) it.next();

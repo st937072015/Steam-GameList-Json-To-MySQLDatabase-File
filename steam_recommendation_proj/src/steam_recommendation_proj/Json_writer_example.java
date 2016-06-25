@@ -18,7 +18,7 @@ import org.json.simple.parser.ParseException;
 public class Json_writer_example {
 
 	public static void main(String[] args) {
-
+/*
 		try {
 
 			
@@ -56,16 +56,16 @@ public class Json_writer_example {
 			System.out.println(e.toString());
 		}
 		
-		
-/*
+		*/
+
 		try {
 
 			// 讀取測試json檔
-			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\test.json");
+			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\10.json");
 			JSONParser parser = new JSONParser();
 			JSONObject read_parser = (JSONObject) parser.parse(json_reader);
 
-			JSONArray review_array = (JSONArray) read_parser.get("app");
+			JSONArray review_array = (JSONArray) read_parser.get("steam_game_review_clean");
 			Iterator it = review_array.iterator();
 
 			int count = 0;
@@ -78,11 +78,11 @@ public class Json_writer_example {
 				
 				//System.out.println("第"+count+"款遊戲，"+"遊戲id為:"+collection.get("評論").toString());
 				
-				JSONArray review_arraylist = (JSONArray) collection.get("評論");
+				JSONArray review_arraylist = (JSONArray) collection.get("review_content");
 				
 	           for (int i = 0; i < review_arraylist.size(); i++) {
 	        	   
-	        	   System.out.println(review_arraylist.get(i));
+	        	   System.out.println(review_arraylist.get(i).toString());
 	        	   
 				
 			}
@@ -103,7 +103,7 @@ public class Json_writer_example {
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());
 		}
-*/
+
 	}
 
 }
