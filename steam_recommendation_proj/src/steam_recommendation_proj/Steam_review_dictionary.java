@@ -134,6 +134,30 @@ public void produce_steam_review_dictionary_advance(String dictionary_text, JSON
 						output_obj.put("personality", LIWC_collection.get("personality"));
 
 						output_array.add(output_obj);
+						break;
+						
+					}
+					// 若字詞什麼都不是
+					else {
+						
+						
+					    // 建立完全無關之人格特質分數權重之arraylist
+					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+						
+						// 建立刷新Json物件
+						JSONObject output_obj = new JSONObject();
+						
+						output_obj.put("id", "none");
+						output_obj.put("word", dictionary_text);
+						output_obj.put("classification", "none");
+						output_obj.put("personality", personality_none_arraylist);
+
+						output_array.add(output_obj);
 						
 					}
 				
@@ -171,6 +195,31 @@ public void produce_steam_review_dictionary_advance(String dictionary_text, JSON
 						output_obj.put("personality", LIWC_collection.get("personality"));
 
 						output_array.add(output_obj);
+						break;
+						
+						
+					}
+					// 若字詞什麼都不是
+					else {
+						
+						
+					    // 建立完全無關之人格特質分數權重之arraylist
+					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+						
+						// 建立刷新Json物件
+						JSONObject output_obj = new JSONObject();
+						
+						output_obj.put("id", "none");
+						output_obj.put("word", dictionary_text);
+						output_obj.put("classification", "none");
+						output_obj.put("personality", personality_none_arraylist);
+
+						output_array.add(output_obj);
 						
 					}
 				
@@ -178,28 +227,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text, JSON
 				
 			}
 			
-		// 若字詞什麼都不是		
-		}else {
-			
-			
-		    // 建立完全無關之人格特質分數權重之arraylist
-		    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
-		    personality_none_arraylist.add(0.00);
-		    personality_none_arraylist.add(0.00);
-		    personality_none_arraylist.add(0.00);
-		    personality_none_arraylist.add(0.00);
-		    personality_none_arraylist.add(0.00);
-			
-			// 建立刷新Json物件
-			JSONObject output_obj = new JSONObject();
-			
-			output_obj.put("id", "none");
-			output_obj.put("word", dictionary_text);
-			output_obj.put("classification", "none");
-			output_obj.put("personality", personality_none_arraylist);
-
-			output_array.add(output_obj);
-			
+				
 		}
 		
 

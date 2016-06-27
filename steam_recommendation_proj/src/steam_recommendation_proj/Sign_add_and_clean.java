@@ -27,7 +27,50 @@ public class Sign_add_and_clean {
 		
 		
 	}	
-	
+	// 過濾亂七八糟字詞只允許[a-z]與[,!?.]功能
+	public int check_text_legal(String text_content) {
+		
+		int check_count=0;
+		
+	    // 檢查[a-z]
+		for(char alphabet = 'a'; alphabet <= 'z';alphabet++) {
+		    		    
+		    // 找尋目標字串中是否所存在亂七八糟字詞之數量
+			int text_count1 =StringUtils.countMatches(text_content, alphabet);
+			
+			if (text_count1>0) {
+				
+				check_count++;
+				
+			}    
+		}
+		
+		
+		// 檢查[,!?.]
+		int text_count2 =StringUtils.countMatches(text_content, ",");
+		int text_count3 =StringUtils.countMatches(text_content, "!");
+		int text_count4 =StringUtils.countMatches(text_content, "?");
+		int text_count5 =StringUtils.countMatches(text_content, ".");
+		
+		if (text_count2 > 0) {
+			check_count++;
+		}else if (text_count3 > 0) {
+			check_count++;
+		}else if (text_count4 > 0) {
+			check_count++;
+		}else if (text_count5 > 0) {
+			check_count++;
+		}
+		
+		
+		
+		
+		
+		
+		
+		return check_count;
+		
+	}
 	
 	// 判定斷詞後的字詞內容中是否有夾雜單一英文字母
 	public boolean word_clean(String text_content) {
