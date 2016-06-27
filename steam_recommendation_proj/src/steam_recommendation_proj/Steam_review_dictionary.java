@@ -47,11 +47,12 @@ public void produce_steam_review_dictionary_normal(String appid,Set<String> stea
 		JSONObject collection = (JSONObject) it.next();
 		
 		ArrayList<String>review_content = (ArrayList<String>)collection.get("review_content");
-		
+
 		
 		// 將讀取到的字串arraylist塞入set
 		for (int i = 0; i < review_content.size(); i++) {
 			
+			System.out.println(review_content.get(i));
 			steam_review_dictionary_normal_set.add(review_content.get(i));
 				
 			

@@ -54,7 +54,7 @@ public class Control_hub5 {
 			
 			for (String element:steam_review_dictionary_normal_set) {
 				
-				System.out.println(element);
+				//System.out.println(element);
 				
 				// 建立刷新Json物件
 				JSONObject output_obj = new JSONObject();

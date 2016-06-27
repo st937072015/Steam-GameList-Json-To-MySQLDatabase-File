@@ -68,22 +68,7 @@ public class Steam_game_review_clean {
 				
 			   analyzer.use_standardanalyzer(review_content, store_arraylist);
 				
-			   // 若斷詞後的文字資料arraylist不為空
-               if (!store_arraylist.isEmpty()) {
-            	   
-            	 // 過濾亂七八糟字詞只允許[a-z]與[,!?.]  
-            	 for (int i = 0; i < store_arraylist.size(); i++) {
-            		 
-            		if ( sign_add.check_text_legal(store_arraylist.get(i)) == 0) {
-						
-            			store_arraylist.remove(i);
-            			
-					}
-            		 
-					
-				}
-            	   
-            	   
+
             	   
             	   
 				JSONObject game_review_obj = new JSONObject();
@@ -91,7 +76,7 @@ public class Steam_game_review_clean {
 			   // 塞入斷詞後的字詞array資料
 			   game_review_obj.put(analyze_collection_text_name, store_arraylist);
 			   game_review_array.add(game_review_obj);
-			}
+			
 			   
 
 			}
