@@ -23,25 +23,25 @@ public class Steam_review_dictionary {
 	
 
 	
-public void produce_steam_review_dictionary_normal(String appid,Set<String> steam_review_dictionary_normal_set) {
+public void produce_steam_review_dictionary_normal(String read_path, String read_object, Set<String> steam_review_dictionary_normal_set) {
 	
 	try {
 	
 	
-	// 讀取某appid遊戲之json檔
-	FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\"+appid+".json");
+	// 讀取某appid遊戲或評論作者id之json檔
+	FileReader json_reader = new FileReader(read_path);
 	JSONParser parser = new JSONParser();
 	JSONObject read_parser = (JSONObject) parser.parse(json_reader);
 
-	JSONArray gamelist_250_array = (JSONArray) read_parser.get("steam_game_review_clean");
+	JSONArray list_250_array = (JSONArray) read_parser.get(read_object);
 
-	Iterator it = gamelist_250_array.iterator();
+	Iterator it = list_250_array.iterator();
 	
 	
 	
 	
 
-	// 讀取評論數至少有250筆的遊戲detail之json檔
+	// 讀取detail之json檔
 	while (it.hasNext()) {
 
 		JSONObject collection = (JSONObject) it.next();

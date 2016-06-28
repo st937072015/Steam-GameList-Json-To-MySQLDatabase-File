@@ -23,34 +23,27 @@ public class Control_hub6 {
 
 		try {
 
-			 // 讀取遊戲清單
-			FileReader normal_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_normal.json");
-			JSONParser normal_parser = new JSONParser();
-			JSONObject normal_read_parser = (JSONObject) normal_parser.parse(normal_json_reader);
+			 // 讀取評論作者之id
+			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_user_list\\Steam_user_list.json");
+			JSONParser parser = new JSONParser();
+			JSONObject read_parser = (JSONObject) parser.parse(json_reader);
 
-			JSONArray normal_array = (JSONArray) normal_read_parser.get("all_normal_word");
+			JSONArray userlist_array = (JSONArray) read_parser.get("all_user_list");
 
-			Iterator normal_it = normal_array.iterator();
-			
-			
+			Iterator it = userlist_array.iterator();
 			
 			JSONArray output_array= new JSONArray();
 			
+			Set<String> steam_user_review_dictionary_normal_set = new HashSet<String>();
 
 			// 取出Iterator中的遊戲資料
-			while (normal_it.hasNext()) {
-           
+			while (it.hasNext()) {
+
 				
-				JSONObject collection = (JSONObject) normal_it.next(); 
-				
-				
-				System.out.println(collection.get("word").toString());
-				
-				
-				
+				JSONObject collection = (JSONObject) it.next();
 				Steam_review_dictionary normal =new Steam_review_dictionary();
 
-				normal.produce_steam_review_dictionary_advance(collection.get("word").toString(), output_array);
+				normal.produce_steam_review_dictionary_normal("C:\\Users\\John-Wall\\Desktop\\Steam_user_review_clean\\" + collection.get("id").toString() + ".json", "steam_user_respective_review_clean", steam_user_review_dictionary_normal_set);
 				
 				
 				
@@ -59,15 +52,26 @@ public class Control_hub6 {
 			
 			
 			
-
+			for (String element:steam_user_review_dictionary_normal_set) {
+				
+				//System.out.println(element);
+				
+				// 建立刷新Json物件
+				JSONObject output_obj = new JSONObject();
+				output_obj.put("word", element);
+				output_array.add(output_obj);
+				
+				
+				
+			}
 		
 			
 			 // 建立第一種對映方法之字典
-			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_advance.json");
+			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_normal.json");
 			 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 			 
 			 // 寫入JSON物件
-			 json_writer.write("{" + "\"all_advance_word\" :" + output_array.toJSONString() + "}");
+			 json_writer.write("{" + "\"all_normal_word\" :" + output_array.toJSONString() + "}");
 			 
 			 // 關閉寫入
 			 json_writer.flush();

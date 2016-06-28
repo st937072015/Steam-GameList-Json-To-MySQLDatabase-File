@@ -43,7 +43,7 @@ public class Control_hub5 {
 				JSONObject collection = (JSONObject) it.next();
 				Steam_review_dictionary normal =new Steam_review_dictionary();
 
-				normal.produce_steam_review_dictionary_normal(collection.get("appid").toString(), steam_review_dictionary_normal_set);
+				normal.produce_steam_review_dictionary_normal("C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\" + collection.get("appid").toString() + ".json", "steam_game_review_clean", steam_review_dictionary_normal_set);
 				
 				
 				

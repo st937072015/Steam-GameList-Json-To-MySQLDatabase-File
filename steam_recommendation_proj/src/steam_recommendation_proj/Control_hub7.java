@@ -42,18 +42,15 @@ public class Control_hub7 {
            
 				
 				JSONObject collection = (JSONObject) normal_it.next(); 
-				Sign_add_and_clean sign_add = new Sign_add_and_clean();
+				
+				
+				System.out.println(collection.get("word").toString());
 				
 				
 				
-	       		if ( sign_add.check_text_legal(collection.get("word").toString()) == 0) {
-					
-        			System.out.println(collection.get("word").toString());
-        		
-        			
-        			
-        			
-				}
+				Steam_review_dictionary normal =new Steam_review_dictionary();
+
+				normal.produce_steam_review_dictionary_advance(collection.get("word").toString(), output_array);
 				
 				
 				
@@ -63,7 +60,7 @@ public class Control_hub7 {
 			
 			
 
-		/*
+		
 			
 			 // 建立第一種對映方法之字典
 			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_advance.json");
@@ -76,7 +73,7 @@ public class Control_hub7 {
 			 json_writer.flush();
 			 json_writer.close();
 			
-			*/
+			
 
 
 		} catch (
