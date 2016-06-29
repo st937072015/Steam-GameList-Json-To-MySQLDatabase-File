@@ -2,13 +2,9 @@ package steam_recommendation_proj;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -80,7 +76,7 @@ public void produce_steam_review_dictionary_normal(String read_path, String read
 }
 
 // 判斷字典中字詞之id與5大人格特質之皮爾森相關系數比重
-public void produce_steam_review_dictionary_advance(String dictionary_text, JSONArray output_array) {
+public void produce_steam_review_dictionary_advance(String dictionary_text,ArrayList<Integer> id_arraylist,ArrayList<String> classification, ArrayList<ArrayList<Double>> personality_arraylist) {
 	
 	
 	
@@ -96,8 +92,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text, JSON
 
 	Iterator LIWC_it = LIWC_array.iterator();
 	
-	
-	
+
 
 
 	// 讀取評論數至少有250筆的遊戲detail之json檔
@@ -109,9 +104,141 @@ public void produce_steam_review_dictionary_advance(String dictionary_text, JSON
 		File check_equal_file=new File("C:\\Users\\John-Wall\\Desktop\\LIWC_2001_json\\contain_equal\\" + LIWC_collection.get("classification").toString() + "_equal.json");
 		
 		
+
+	
+	
 		
-		// contain詞庫檔
-		if (check_contain_file.exists()) {
+		// 若只有contain詞庫檔存在
+		if (check_contain_file.exists() && !check_equal_file.exists()) {
+			// 讀取contain詞庫檔
+			FileReader contain_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\LIWC_2001_json\\contain_equal\\" + LIWC_collection.get("classification").toString() + "_contain.json");
+			JSONParser contain_parser = new JSONParser();
+			JSONObject contain_read_parser = (JSONObject) contain_parser.parse(contain_json_reader);
+
+			JSONArray contain_array = (JSONArray) contain_read_parser.get("contain");
+
+			Iterator contain_it = contain_array.iterator();
+			    
+			    // contain字典運算部分
+				while (contain_it.hasNext()) {
+				
+					JSONObject contain_collection = (JSONObject) contain_it.next();
+					
+		
+					if (dictionary_text.contains(contain_collection.get("word").toString())){
+												
+					
+						
+						id_arraylist.add((Integer) LIWC_collection.get("id"));
+						classification.add(LIWC_collection.get("classification").toString());
+						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
+						
+						
+						break;
+						
+				
+						
+						
+					}
+					// 若字詞什麼都不是
+					else {
+						
+						// 加入完全無關之字詞類別id
+						id_arraylist.add(9999);
+						
+						// 加入完全無關之字詞類別
+						classification.add("none");
+						
+					    // 建立完全無關之人格特質分數權重之arraylist
+					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    
+					    personality_arraylist.add(personality_none_arraylist);
+					    
+						break;
+						
+
+						
+					}
+				
+				
+
+	
+					
+					
+				
+			}
+			
+	
+			
+			
+		
+		// 若只有equal詞庫檔存在	
+		}else if (check_equal_file.exists() && !check_contain_file.exists()) {
+			// 讀取equal詞庫檔
+			FileReader equal_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\LIWC_2001_json\\contain_equal\\" + LIWC_collection.get("classification").toString() + "_equal.json");
+			JSONParser equal_parser = new JSONParser();
+			JSONObject equal_read_parser = (JSONObject) equal_parser.parse(equal_json_reader);
+
+			JSONArray equal_array = (JSONArray) equal_read_parser.get("equal");
+
+			Iterator equal_it = equal_array.iterator();
+
+			
+			
+			    // equal字典運算部分
+				while (equal_it.hasNext()) {
+				
+					JSONObject equal_collection = (JSONObject) equal_it.next();
+					if (dictionary_text.equals(equal_collection.get("word").toString())){
+												
+						id_arraylist.add((Integer) LIWC_collection.get("id"));
+						classification.add(LIWC_collection.get("classification").toString());
+						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
+						
+						
+						break;
+			
+				
+						
+						
+					}
+					// 若字詞什麼都不是
+					else {
+						
+						// 加入完全無關之字詞類別id
+						id_arraylist.add(9999);
+						
+						// 加入完全無關之字詞類別
+						classification.add("none");
+						
+					    // 建立完全無關之人格特質分數權重之arraylist
+					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    personality_none_arraylist.add(0.00);
+					    
+					    personality_arraylist.add(personality_none_arraylist);
+					    
+						break;
+
+	
+						
+					}
+				
+				
+				
+			}
+			
+		// 若兩種模式的詞庫檔都存在		
+		}else if (check_contain_file.exists() && check_equal_file.exists()) {
+			
 			// 讀取contain詞庫檔
 			FileReader contain_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\LIWC_2001_json\\contain_equal\\" + LIWC_collection.get("classification").toString() + "_contain.json");
 			JSONParser contain_parser = new JSONParser();
@@ -121,58 +248,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text, JSON
 
 			Iterator contain_it = contain_array.iterator();
 			
-				while (contain_it.hasNext()) {
-				
-					JSONObject contain_collection = (JSONObject) contain_it.next();
-					if (dictionary_text.contains(contain_collection.get("word").toString())){
-												
-						// 建立刷新Json物件
-						JSONObject output_obj = new JSONObject();
-						System.out.println(LIWC_collection.get("id"));
-						output_obj.put("id", LIWC_collection.get("id"));
-						output_obj.put("word", dictionary_text);
-						output_obj.put("classification", LIWC_collection.get("classification"));
-						output_obj.put("personality", LIWC_collection.get("personality"));
-
-						output_array.add(output_obj);
-						break;
-						
-					}
-					// 若字詞什麼都不是
-					else {
-						
-						
-					    // 建立完全無關之人格特質分數權重之arraylist
-					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-						
-						// 建立刷新Json物件
-						JSONObject output_obj = new JSONObject();
-						
-						output_obj.put("id", "none");
-						output_obj.put("word", dictionary_text);
-						output_obj.put("classification", "none");
-						output_obj.put("personality", personality_none_arraylist);
-
-						output_array.add(output_obj);
-						
-					}
-				
-				
-				
-			}
 			
-			
-			
-			
-			
-		
-		// equal詞庫檔	
-		}else if (check_equal_file.exists()) {
 			// 讀取equal詞庫檔
 			FileReader equal_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\LIWC_2001_json\\contain_equal\\" + LIWC_collection.get("classification").toString() + "_equal.json");
 			JSONParser equal_parser = new JSONParser();
@@ -182,27 +258,64 @@ public void produce_steam_review_dictionary_advance(String dictionary_text, JSON
 
 			Iterator equal_it = equal_array.iterator();
 			
-				while (equal_it.hasNext()) {
+			
+			// 判斷兩種字典是否有匹配到符合的字詞種類
+			boolean put_none = false;
+
+			    // contain字典運算部分
+				while (contain_it.hasNext()) {
 				
+					JSONObject contain_collection = (JSONObject) contain_it.next();
+					
+		
+					if (dictionary_text.contains(contain_collection.get("word").toString())){
+												
+					    // 有匹配到所以設定為true
+						put_none = true;
+						
+						id_arraylist.add((Integer) LIWC_collection.get("id"));
+						classification.add(LIWC_collection.get("classification").toString());
+						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
+						
+						 
+						break;
+
+					}
+
+                 }	
+			
+			
+				
+				
+				    // equal字典運算部分
+				    while (equal_it.hasNext()) {
+					
 					JSONObject equal_collection = (JSONObject) equal_it.next();
 					if (dictionary_text.equals(equal_collection.get("word").toString())){
-												
-						// 建立刷新Json物件
-						JSONObject output_obj = new JSONObject();
+									
+						// 有匹配到所以設定為true
+						put_none = true;
 						
-						output_obj.put("id", LIWC_collection.get("id"));
-						output_obj.put("word", dictionary_text);
-						output_obj.put("classification", LIWC_collection.get("classification"));
-						output_obj.put("personality", LIWC_collection.get("personality"));
-
-						output_array.add(output_obj);
+						id_arraylist.add((Integer) LIWC_collection.get("id"));
+						classification.add(LIWC_collection.get("classification").toString());
+						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
+						
+						
 						break;
-						
+				
 						
 					}
-					// 若字詞什麼都不是
-					else {
+
+                   }
+				    
+				   // 假如字詞為種類完全無關的字詞 
+				   if (!put_none) {
+					   
+						// 加入完全無關之字詞類別id
+						id_arraylist.add(9999);
 						
+						// 加入完全無關之字詞類別
+						classification.add("none");
 						
 					    // 建立完全無關之人格特質分數權重之arraylist
 					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
@@ -211,24 +324,19 @@ public void produce_steam_review_dictionary_advance(String dictionary_text, JSON
 					    personality_none_arraylist.add(0.00);
 					    personality_none_arraylist.add(0.00);
 					    personality_none_arraylist.add(0.00);
-						
-						// 建立刷新Json物件
-						JSONObject output_obj = new JSONObject();
-						
-						output_obj.put("id", "none");
-						output_obj.put("word", dictionary_text);
-						output_obj.put("classification", "none");
-						output_obj.put("personality", personality_none_arraylist);
-
-						output_array.add(output_obj);
-						
-					}
-				
-				
-				
-			}
+					    
+					    personality_arraylist.add(personality_none_arraylist);
+					   
+					   
+					
+				} 
 			
-				
+			
+			
+			
+			
+			
+			
 		}
 		
 

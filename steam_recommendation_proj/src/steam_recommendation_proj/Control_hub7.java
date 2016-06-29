@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -46,13 +47,24 @@ public class Control_hub7 {
 				
 				System.out.println(collection.get("word").toString());
 				
+				ArrayList<Integer> id_arraylist = new ArrayList<Integer>();
+				ArrayList<String> classification = new ArrayList<String>();
+				ArrayList<ArrayList<Double>> personality_arraylist = new ArrayList<ArrayList<Double>>();
 				
 				
 				Steam_review_dictionary normal =new Steam_review_dictionary();
 
-				normal.produce_steam_review_dictionary_advance(collection.get("word").toString(), output_array);
+				normal.produce_steam_review_dictionary_advance(collection.get("word").toString(), id_arraylist, classification, personality_arraylist);
 				
-				
+				// 建立刷新Json物件
+				JSONObject word_obj = new JSONObject();
+
+				word_obj.put("word", collection.get("word").toString());
+				word_obj.put("id", id_arraylist);
+				word_obj.put("classification", classification);
+				word_obj.put("personality", personality_arraylist);
+
+				output_array.add(word_obj);
 				
 
 			}
