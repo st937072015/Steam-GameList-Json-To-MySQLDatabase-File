@@ -58,18 +58,42 @@ public class Control_hub7 {
 				
 				// 建立刷新Json物件
 				JSONObject word_obj = new JSONObject();
-
+				
+				
+				
+               // 若人格特質arraylist為空 代表為完全無關字詞
+               if (personality_arraylist.isEmpty()) {
+            	   
+	           // 加入完全無關之字詞類別id
+	           // id_arraylist.add(9999);
+	
+	          // 加入完全無關之字詞類別
+	          // classification.add("none");
+	
+	
+	          // 建立完全無關之人格特質分數權重之arraylist
+              ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
+              personality_none_arraylist.add(0.0);
+              personality_none_arraylist.add(0.0);
+              personality_none_arraylist.add(0.0);
+              personality_none_arraylist.add(0.0);
+              personality_none_arraylist.add(0.0);
+    
+              personality_arraylist.add(personality_none_arraylist);
+             }
+				
+               
 				word_obj.put("word", collection.get("word").toString());
-				word_obj.put("id", id_arraylist);
-				word_obj.put("classification", classification);
-				word_obj.put("personality", personality_arraylist);
-                
+				//word_obj.put("id", id_arraylist);
+				//word_obj.put("classification", classification);
+				
+               
 				System.out.println(collection.get("word").toString());
-				System.out.println(id_arraylist);
-				System.out.println(classification);
+				//System.out.println(id_arraylist);
+				//System.out.println(classification);
 				System.out.println(personality_arraylist);
-				
-				
+               
+				word_obj.put("personality", personality_arraylist);
 				output_array.add(word_obj);
 				
 

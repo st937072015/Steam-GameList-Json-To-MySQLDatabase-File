@@ -129,8 +129,8 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 												
 					
 						
-						id_arraylist.add(LIWC_collection.get("id"));
-						classification.add(LIWC_collection.get("classification").toString());
+						//id_arraylist.add(LIWC_collection.get("id"));
+						//classification.add(LIWC_collection.get("classification").toString());
 						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
 						
 						
@@ -140,30 +140,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 						
 						
 					}
-					// 若字詞什麼都不是
-					else {
-						
-						// 加入完全無關之字詞類別id
-						id_arraylist.add(9999);
-						
-						// 加入完全無關之字詞類別
-						classification.add("none");
-						
-					    // 建立完全無關之人格特質分數權重之arraylist
-					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    
-					    personality_arraylist.add(personality_none_arraylist);
-					    
-						break;
-						
-
-						
-					}
+		
 				
 				
 
@@ -196,8 +173,8 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 					JSONObject equal_collection = (JSONObject) equal_it.next();
 					if (dictionary_text.equals(equal_collection.get("word").toString())){
 												
-						id_arraylist.add(LIWC_collection.get("id"));
-						classification.add(LIWC_collection.get("classification").toString());
+						//id_arraylist.add(LIWC_collection.get("id"));
+						//classification.add(LIWC_collection.get("classification").toString());
 						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
 						
 						
@@ -207,30 +184,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 						
 						
 					}
-					// 若字詞什麼都不是
-					else {
-						
-						// 加入完全無關之字詞類別id
-						id_arraylist.add(9999);
-						
-						// 加入完全無關之字詞類別
-						classification.add("none");
-						
-					    // 建立完全無關之人格特質分數權重之arraylist
-					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    
-					    personality_arraylist.add(personality_none_arraylist);
-					    
-						break;
 
-	
-						
-					}
 				
 				
 				
@@ -270,13 +224,12 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 		
 					if (dictionary_text.contains(contain_collection.get("word").toString())){
 												
-					    // 有匹配到所以設定為true
-						put_none = true;
+
 						
 						
 						
-						id_arraylist.add(LIWC_collection.get("id"));
-						classification.add(LIWC_collection.get("classification").toString());
+						//id_arraylist.add(LIWC_collection.get("id"));
+						//classification.add(LIWC_collection.get("classification").toString());
 						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
 						
 						 
@@ -298,8 +251,8 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 						// 有匹配到所以設定為true
 						put_none = true;
 						
-						id_arraylist.add(LIWC_collection.get("id"));
-						classification.add(LIWC_collection.get("classification").toString());
+						//id_arraylist.add(LIWC_collection.get("id"));
+						//classification.add(LIWC_collection.get("classification").toString());
 						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
 						
 						
@@ -310,28 +263,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 
                    }
 				    
-				   // 假如字詞為種類完全無關的字詞 
-				   if (!put_none) {
-					   
-						// 加入完全無關之字詞類別id
-						id_arraylist.add(9999);
-						
-						// 加入完全無關之字詞類別
-						classification.add("none");
-						
-					    // 建立完全無關之人格特質分數權重之arraylist
-					    ArrayList<Double>personality_none_arraylist=new ArrayList<Double>();
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    personality_none_arraylist.add(0.00);
-					    
-					    personality_arraylist.add(personality_none_arraylist);
-					   
-					    
-					
-				} 
+
 			
 			
 			
