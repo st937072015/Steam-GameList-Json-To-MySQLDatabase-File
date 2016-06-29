@@ -45,9 +45,9 @@ public class Control_hub7 {
 				JSONObject collection = (JSONObject) normal_it.next(); 
 				
 				
-				System.out.println(collection.get("word").toString());
+				//System.out.println(collection.get("word").toString());
 				
-				ArrayList<Integer> id_arraylist = new ArrayList<Integer>();
+				ArrayList id_arraylist = new ArrayList();
 				ArrayList<String> classification = new ArrayList<String>();
 				ArrayList<ArrayList<Double>> personality_arraylist = new ArrayList<ArrayList<Double>>();
 				
@@ -63,7 +63,13 @@ public class Control_hub7 {
 				word_obj.put("id", id_arraylist);
 				word_obj.put("classification", classification);
 				word_obj.put("personality", personality_arraylist);
-
+                
+				System.out.println(collection.get("word").toString());
+				System.out.println(id_arraylist);
+				System.out.println(classification);
+				System.out.println(personality_arraylist);
+				
+				
 				output_array.add(word_obj);
 				
 

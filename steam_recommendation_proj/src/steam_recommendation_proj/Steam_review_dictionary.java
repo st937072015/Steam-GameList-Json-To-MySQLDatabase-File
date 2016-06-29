@@ -76,7 +76,7 @@ public void produce_steam_review_dictionary_normal(String read_path, String read
 }
 
 // 判斷字典中字詞之id與5大人格特質之皮爾森相關系數比重
-public void produce_steam_review_dictionary_advance(String dictionary_text,ArrayList<Integer> id_arraylist,ArrayList<String> classification, ArrayList<ArrayList<Double>> personality_arraylist) {
+public void produce_steam_review_dictionary_advance(String dictionary_text,ArrayList id_arraylist,ArrayList<String> classification, ArrayList<ArrayList<Double>> personality_arraylist) {
 	
 	
 	
@@ -129,7 +129,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 												
 					
 						
-						id_arraylist.add((Integer) LIWC_collection.get("id"));
+						id_arraylist.add(LIWC_collection.get("id"));
 						classification.add(LIWC_collection.get("classification").toString());
 						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
 						
@@ -196,7 +196,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 					JSONObject equal_collection = (JSONObject) equal_it.next();
 					if (dictionary_text.equals(equal_collection.get("word").toString())){
 												
-						id_arraylist.add((Integer) LIWC_collection.get("id"));
+						id_arraylist.add(LIWC_collection.get("id"));
 						classification.add(LIWC_collection.get("classification").toString());
 						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
 						
@@ -273,7 +273,9 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 					    // 有匹配到所以設定為true
 						put_none = true;
 						
-						id_arraylist.add((Integer) LIWC_collection.get("id"));
+						
+						
+						id_arraylist.add(LIWC_collection.get("id"));
 						classification.add(LIWC_collection.get("classification").toString());
 						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
 						
@@ -296,7 +298,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 						// 有匹配到所以設定為true
 						put_none = true;
 						
-						id_arraylist.add((Integer) LIWC_collection.get("id"));
+						id_arraylist.add(LIWC_collection.get("id"));
 						classification.add(LIWC_collection.get("classification").toString());
 						personality_arraylist.add((ArrayList<Double>) LIWC_collection.get("personality"));
 						
@@ -327,7 +329,7 @@ public void produce_steam_review_dictionary_advance(String dictionary_text,Array
 					    
 					    personality_arraylist.add(personality_none_arraylist);
 					   
-					   
+					    
 					
 				} 
 			
