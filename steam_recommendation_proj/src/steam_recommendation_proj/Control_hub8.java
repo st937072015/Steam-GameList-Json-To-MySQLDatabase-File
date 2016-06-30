@@ -24,7 +24,7 @@ public class Control_hub8 {
 
 		try {
 
-			 // 讀取遊戲清單
+			 // 讀取第一種對映方法之遊戲字典json檔
 			FileReader normal_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_normal.json");
 			JSONParser normal_parser = new JSONParser();
 			JSONObject normal_read_parser = (JSONObject) normal_parser.parse(normal_json_reader);
@@ -38,7 +38,7 @@ public class Control_hub8 {
 			JSONArray output_array= new JSONArray();
 			
 
-			// 取出Iterator中的遊戲資料
+			// 取出Iterator中的字典字詞資料
 			while (normal_it.hasNext()) {
            
 				
