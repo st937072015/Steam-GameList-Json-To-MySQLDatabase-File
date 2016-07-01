@@ -18,29 +18,29 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.remote.server.handler.MaximizeWindow;
 
-public class Control_hub9 {
+public class Control_hub10 {
 
 	public static void main(String[] args) {
 
 		try {
 
-			 // 讀取遊戲清單
-			FileReader list_250_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_06_11_sample_250.json");
-			JSONParser list_250_parser = new JSONParser();
-			JSONObject list_250_read_parser = (JSONObject) list_250_parser.parse(list_250_json_reader);
+			 // 讀取評論作者清單
+			FileReader list_user_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_user_list\\Steam_user_list.json");
+			JSONParser list_user_parser = new JSONParser();
+			JSONObject list_user_read_parser = (JSONObject) list_user_parser.parse(list_user_json_reader);
 
-			JSONArray list_250_array = (JSONArray) list_250_read_parser.get("app_sample_250");
+			JSONArray list_user_array = (JSONArray) list_user_read_parser.get("all_user_list");
 
-			Iterator list_250_it = list_250_array.iterator();
+			Iterator list_user_it = list_user_array.iterator();
 			
 
 			
 
-			// 取出Iterator中的遊戲資料
-			while (list_250_it.hasNext()) {
+			// 取出Iterator中的評論作者的遊戲評論資料
+			while (list_user_it.hasNext()) {
            
 				
-				JSONObject collection = (JSONObject) list_250_it.next();
+				JSONObject collection = (JSONObject) list_user_it.next();
 				
 			
 			    
@@ -48,7 +48,7 @@ public class Control_hub9 {
 				
 				Steam_review_tfidf go_tfidf =new Steam_review_tfidf();
 				
-				go_tfidf.tf_idf("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_normal.json", "all_normal_word", "C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\" + collection.get("appid").toString() + ".json", "steam_game_review_clean", collection.get("appid").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_review_tfidf\\", "steam_review_tfidf");
+				go_tfidf.tf_idf("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_normal.json", "all_normal_word", "C:\\Users\\John-Wall\\Desktop\\Steam_user_review_clean\\" + collection.get("id").toString() + ".json", "steam_user_respective_review_clean", collection.get("id").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_user_review_tfidf\\", "steam_review_tfidf");
 
 				
 

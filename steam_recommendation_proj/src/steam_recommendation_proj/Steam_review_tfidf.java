@@ -19,12 +19,12 @@ import org.json.simple.parser.ParseException;
 
 public class Steam_review_tfidf {
 
-public void tf_idf(String dictionary_read_path, String dictionary_object, String appid_path, String steam_review_object, String appid) {
+public void tf_idf(String dictionary_read_path, String dictionary_object, String read_appid_path, String steam_review_object, String appid , String output_path, String output_object) {
 	
 	
 	try {
 	// 讀取遊戲評論json檔
-	FileReader steam_review_read_json_reader = new FileReader(appid_path);
+	FileReader steam_review_read_json_reader = new FileReader(read_appid_path);
 	JSONParser steam_review_read_parser = new JSONParser();
 	JSONObject steam_review_read_object = (JSONObject) steam_review_read_parser.parse(steam_review_read_json_reader);
 
@@ -84,11 +84,11 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 	
 
 	 // 輸出所有計算結果之json檔案
-	 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_tfidf\\"+ appid +".json");
+	 FileOutputStream fos = new FileOutputStream(output_path + appid +".json");
 	 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 	 
 	 // 寫入JSON物件
-	 json_writer.write("{" + "\"steam_review_tfidf\" :" + output_array.toJSONString() + "}");
+	 json_writer.write("{" + "\"" + output_object + "\" :" + output_array.toJSONString() + "}");
 	 
 	 // 關閉寫入
 	 json_writer.flush();
