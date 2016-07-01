@@ -8,6 +8,9 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -47,23 +50,28 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 		
 	    
 		
+		
 	    // 執行計算字詞出現次數功能
-	    ArrayList<Integer> text_count_arraylist = Steam_review_tfidf.text_count(dictionary_read_path, dictionary_object, review_content_arraylist);
+		LinkedHashMap<Integer, Double> review_content_count_hashmap = Steam_review_tfidf.text_count(dictionary_read_path, dictionary_object, review_content_arraylist);
 		
 		// 執行計算tf值功能
-	    ArrayList<Double> tf_arraylist =  Steam_review_tfidf.tf(text_count_arraylist, review_content_arraylist);
+		LinkedHashMap<Integer, Double> review_content_tf_hashmap =  Steam_review_tfidf.tf(review_content_count_hashmap, review_content_arraylist);
 	    
 	    
+		// 每一筆評論儲存計算後的hashmap到arraylist中
 		
+		ArrayList<LinkedHashMap<Integer, Double>> store_calculate_arraylist = new ArrayList<LinkedHashMap<Integer, Double>>();
 		
+		store_calculate_arraylist.add(review_content_count_hashmap);
+		store_calculate_arraylist.add(review_content_tf_hashmap);
        
 		
 		// 建立刷新Json物件
 		JSONObject tfidf_obj = new JSONObject();
 		
 		
-		tfidf_obj.put("review_count", text_count_arraylist);
-		tfidf_obj.put("review_tf", tf_arraylist);
+		tfidf_obj.put("review_tfidf", store_calculate_arraylist);
+		
 		
 		output_array.add(tfidf_obj);
 		review_count++;
@@ -102,11 +110,12 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 }	
 	
 
-// 計算字詞出現次數	
-public static ArrayList<Integer> text_count(String dictionary_read_path, String dictionary_object, ArrayList<String> review_content_arraylist) {
+  // 計算字詞出現次數	
+  public static LinkedHashMap<Integer, Double> text_count(String dictionary_read_path, String dictionary_object, ArrayList<String> review_content_arraylist) {
 	
-	// 儲存字詞之count結果arraylist
-	ArrayList<Integer> review_content_count_arraylist =new ArrayList<Integer>();
+	// 儲存字詞之count結果hashmap
+	LinkedHashMap<Integer, Double> review_content_count_hashmap = new LinkedHashMap<Integer, Double>();
+
 	
 	try {
 	
@@ -123,16 +132,7 @@ public static ArrayList<Integer> text_count(String dictionary_read_path, String 
 	
 
 	
-	for (int i = 0; i < dictionary_normal_array.size(); i++) {
-		
-		// debug
-		//System.out.println("字典字詞總size為:"+dictionary_normal_array.size()+"個字");
-		
-		review_content_count_arraylist.add(0);
-		
-		
-		
-	}
+
 	
 	// 取得字典比對之index
 	int dictionary_word_index= 0;
@@ -151,9 +151,28 @@ public static ArrayList<Integer> text_count(String dictionary_read_path, String 
 			
 			    // 與normal字典進行字詞比對count
 				if (review_content_arraylist.equals(dictionary_normal_collection.get("word").toString())) {
+			        
+					
+					// 若比對到的字詞尚未初始化就進行初始化
+					if (review_content_count_hashmap.get(dictionary_word_index) == null) {
+						
+						review_content_count_hashmap.put(dictionary_word_index, 0.0);
+							
+						
+					}else{
+						
+					    // 若比對到count就加入匹配字詞之index
+						review_content_count_hashmap.put(dictionary_word_index, review_content_count_hashmap.get(dictionary_word_index) + 1.0);
+						
+						
+					}
 			
-					// 若比對到count就加1
-					review_content_count_arraylist.set(dictionary_word_index, review_content_count_arraylist.get(dictionary_word_index)+1);
+				
+					
+					
+					
+					
+					
 					
 					
 					
@@ -167,14 +186,7 @@ public static ArrayList<Integer> text_count(String dictionary_read_path, String 
 	    }
 		
 		
-		
-	
-		
-		
-        
-		
 
-	
 		
 		
 	}
@@ -193,42 +205,44 @@ public static ArrayList<Integer> text_count(String dictionary_read_path, String 
 		System.out.println(e.toString());
 	}
 	
-	return review_content_count_arraylist;
+	return review_content_count_hashmap;
 
 }
 
-public static ArrayList<Double> tf(ArrayList<Integer> text_count_arraylist, ArrayList<String> review_content_arraylist) {
+public static LinkedHashMap<Integer, Double> tf(LinkedHashMap<Integer, Double> review_content_count_hashmap, ArrayList<String> review_content_arraylist) {
 	
-	ArrayList<Double> tf_arraylist = new ArrayList<Double>(); 
+	
+	// 儲存tf值運算後的hashmap
+	LinkedHashMap<Integer, Double> review_content_tf_hashmap = new LinkedHashMap<Integer, Double>();
+	
+	
+	// 將key值與value存入set中
+	Set review_content_count_set = (Set) review_content_count_hashmap.entrySet();
+	
+	
+	// 進行迭代
+	Iterator review_content_count_iterator = review_content_count_set.iterator();
+	
 	
 	// 計算評論tf值
-	for (int i = 0; i < text_count_arraylist.size(); i++) {
+    while (review_content_count_iterator.hasNext()) {
 		
-		
-		// debug
-		//System.out.println(review_content_arraylist.size());
-		
-		
-		// 預防分母為0
-		if (!review_content_arraylist.isEmpty()) {
-		// 某字詞出現次數(除以)總字詞數
-		tf_arraylist.add((double) (text_count_arraylist.get(i)/review_content_arraylist.size()));	
-		
-		}else{
-			
-			tf_arraylist.add(0.0);
-			
-		}
-		
-		
-	
-		
+    	 Map.Entry review_content_count_entry = (Map.Entry) review_content_count_iterator.next();
+    	
+    	
+    	 review_content_tf_hashmap.put((int) review_content_count_entry.getKey(), (double)review_content_count_entry.getValue()/(double)review_content_arraylist.size());
+    	
+
 	}
+    
 	
 	
 	
 	
-	return tf_arraylist;
+	
+	
+	
+	return review_content_tf_hashmap;
 	
 }
 
