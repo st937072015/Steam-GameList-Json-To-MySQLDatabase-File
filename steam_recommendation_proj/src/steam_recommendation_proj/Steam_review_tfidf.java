@@ -178,14 +178,14 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 				
 				
 				
-	    // 字典比對之index累加		
-		dictionary_word_index ++;
+	  
 				
 				
 	    }
 		
 		
-
+        // 字典比對之index累加		
+		dictionary_word_index ++;
 		
 		
 	}
