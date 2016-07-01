@@ -157,7 +157,9 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 					if (review_content_count_hashmap.get(dictionary_word_index) == null) {
 						
 						review_content_count_hashmap.put(dictionary_word_index, 0.0);
-							
+						
+						// 若比對到count就加入匹配字詞之index
+						review_content_count_hashmap.put(dictionary_word_index, review_content_count_hashmap.get(dictionary_word_index) + 1.0);
 						
 					}else{
 						
