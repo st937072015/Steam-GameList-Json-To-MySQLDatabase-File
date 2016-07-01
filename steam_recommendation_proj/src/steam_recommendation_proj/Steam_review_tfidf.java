@@ -57,7 +57,10 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 		// 執行計算tf值功能
 		LinkedHashMap<Integer, Double> review_content_tf_hashmap =  Steam_review_tfidf.tf(review_content_count_hashmap, review_content_arraylist);
 	    
-	    
+
+
+		
+		
 		// 每一筆評論儲存計算後的hashmap到arraylist中
 		
 		ArrayList<LinkedHashMap<Integer, Double>> store_calculate_arraylist = new ArrayList<LinkedHashMap<Integer, Double>>();
@@ -150,7 +153,7 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 		for (int i = 0; i < review_content_arraylist.size(); i++) {
 			
 			    // 與normal字典進行字詞比對count
-				if (review_content_arraylist.equals(dictionary_normal_collection.get("word").toString())) {
+				if (review_content_arraylist.get(i).equals(dictionary_normal_collection.get("word").toString())) {
 			        
 					
 					// 若比對到的字詞尚未初始化就進行初始化
@@ -160,7 +163,7 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 						
 						// 若比對到count就加入匹配字詞之index
 						review_content_count_hashmap.put(dictionary_word_index, review_content_count_hashmap.get(dictionary_word_index) + 1.0);
-						
+						System.out.println(review_content_count_hashmap.get(dictionary_word_index));
 					}else{
 						
 					    // 若比對到count就加入匹配字詞之index
