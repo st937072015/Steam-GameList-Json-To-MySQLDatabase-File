@@ -163,7 +163,7 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 						
 						// 若比對到count就加入匹配字詞之index
 						review_content_count_hashmap.put(dictionary_word_index, review_content_count_hashmap.get(dictionary_word_index) + 1.0);
-						System.out.println(review_content_count_hashmap.get(dictionary_word_index));
+						
 					}else{
 						
 					    // 若比對到count就加入匹配字詞之index
@@ -172,17 +172,11 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 						
 					}
 			
-				
-					
-					
-					
-					
-					
-					
-					
-					
+	
 					
 		         }
+				
+				
 				
 	    // 字典比對之index累加		
 		dictionary_word_index ++;
