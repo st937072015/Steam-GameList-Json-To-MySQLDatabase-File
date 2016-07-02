@@ -19,8 +19,9 @@ import org.json.simple.parser.ParseException;
 
 public class Steam_review_tfidf {
 
-public void tf_idf(String dictionary_read_path, String dictionary_object, String read_appid_path, String steam_review_object, String appid , String output_path, String output_object) {
+public int tf_idf(String dictionary_read_path, String dictionary_object, String read_appid_path, String steam_review_object, String appid , String output_path, String output_object, LinkedHashMap<Integer, Double> review_content_idf_hashmap) {
 	
+	int review_count = 0;
 	
 	try {
 	// 讀取遊戲評論json檔
@@ -29,18 +30,21 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 	JSONObject steam_review_read_object = (JSONObject) steam_review_read_parser.parse(steam_review_read_json_reader);
 
 	JSONArray steam_review_array = (JSONArray) steam_review_read_object.get(steam_review_object);
+    
+
 
 	Iterator steam_review_it = steam_review_array.iterator();
 	
+	
 	JSONArray output_array= new JSONArray();
 	
-	int review_count = 1;
+	
 	
 	// 取出Iterator中的評論資料
 	while (steam_review_it.hasNext()) {
        
 		//debug
-		System.out.println("遊戲appid為:" + appid + "，第"+review_count+"筆評論");
+		System.out.println("遊戲appid為:" + appid + "，第"+ (review_count+1) +"筆評論");
 		
 		
 		JSONObject collection = (JSONObject) steam_review_it.next();
@@ -57,7 +61,43 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 		// 執行計算tf值功能
 		LinkedHashMap<Integer, Double> review_content_tf_hashmap =  Steam_review_tfidf.tf(review_content_count_hashmap, review_content_arraylist);
 	    
+		
 
+			
+	    // 計算idf	
+		for (int key : review_content_tf_hashmap.keySet()) {
+			
+			if (review_content_idf_hashmap.get(key) == null) {
+				
+				
+				
+				review_content_idf_hashmap.put(key, 0.0);
+				
+				
+				review_content_idf_hashmap.put(key, review_content_idf_hashmap.get(key) + 1.0);
+				
+				
+			}else {
+				
+				
+				review_content_idf_hashmap.put(key, review_content_idf_hashmap.get(key) + 1.0);
+				
+				
+			}
+			
+	
+			
+		}
+			
+			
+		
+
+		
+		
+
+		
+		
+      
 
 		
 		
@@ -109,6 +149,8 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 		System.out.println(e.toString());
 	}
 	
+	return review_count;
+	
 	
 }	
 	
@@ -129,9 +171,9 @@ public void tf_idf(String dictionary_read_path, String dictionary_object, String
 	JSONObject dictionary_read_object = (JSONObject) dictionary_read_parser.parse(dictionary_read_json_reader);
 
 	JSONArray dictionary_normal_array = (JSONArray) dictionary_read_object.get(dictionary_object);
-
-	Iterator dictionary_normal_it = dictionary_normal_array.iterator();
+    
 	
+	Iterator dictionary_normal_it = dictionary_normal_array.iterator();
 	
 
 	

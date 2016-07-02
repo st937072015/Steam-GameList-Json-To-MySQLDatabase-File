@@ -10,6 +10,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 import org.json.simple.JSONArray;
@@ -33,7 +34,14 @@ public class Control_hub9 {
 
 			Iterator list_250_it = list_250_array.iterator();
 			
-
+			JSONArray review_content_idf_array = new JSONArray();
+			
+			// 儲存idf結果
+			LinkedHashMap<Integer, Double> review_content_idf_hashmap = new LinkedHashMap<Integer, Double>();
+			
+			
+			// 計算全部review數量
+			int review_all_count = 0;
 			
 
 			// 取出Iterator中的遊戲資料
@@ -48,13 +56,40 @@ public class Control_hub9 {
 				
 				Steam_review_tfidf go_tfidf =new Steam_review_tfidf();
 				
-				go_tfidf.tf_idf("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_normal.json", "all_normal_word", "C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\" + collection.get("appid").toString() + ".json", "steam_game_review_clean", collection.get("appid").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_review_tfidf\\", "steam_review_tfidf");
+				review_all_count = review_all_count + go_tfidf.tf_idf("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_normal.json", "all_normal_word", "C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\" + collection.get("appid").toString() + ".json", "steam_game_review_clean", collection.get("appid").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_review_tfidf\\", "steam_review_tfidf", review_content_idf_hashmap);
 
-				
+			
 
 			}
 			
-	
+			// debug
+			System.out.println(review_all_count);
+	       
+			for (int key : review_content_idf_hashmap.keySet()) {
+				
+				
+				
+				review_content_idf_hashmap.put(key, Math.log(review_all_count / review_content_idf_hashmap.get(key)));
+				
+				
+				
+				
+			}
+			
+			review_content_idf_array.add(review_content_idf_hashmap);
+			
+			
+			 // 建立idf分數參考字典
+			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\steam_game_review_idf.json");
+			 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
+
+			 // 寫入JSON物件
+			 json_writer.write("{" + "\"steam_review_idf\" :" + review_content_idf_array.toJSONString() + "}");
+			 
+			 // 關閉寫入
+			 json_writer.flush();
+			 json_writer.close();
+			
 
 
 		} catch (
