@@ -37,6 +37,19 @@ public class Control_hub8 {
 			
 			JSONArray output_array= new JSONArray();
 			
+			
+			// 讀取LIWC字典字詞分類類別之json檔
+			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\LIWC_2001_json\\LIWC_2001_classification_06_27.json");
+			JSONParser parser = new JSONParser();
+			JSONObject read_parser = (JSONObject) parser.parse(json_reader);
+
+			JSONArray LIWC_array = (JSONArray) read_parser.get("LIWC_2001_classification");
+			
+			
+			
+			
+			
+			
 
 			// 取出Iterator中的字典字詞資料
 			while (normal_it.hasNext()) {
@@ -54,7 +67,7 @@ public class Control_hub8 {
 				
 				Steam_review_dictionary normal =new Steam_review_dictionary();
 
-				normal.produce_steam_review_dictionary_advance(collection.get("word").toString(), id_arraylist, classification, personality_arraylist);
+				normal.produce_steam_review_dictionary_advance(LIWC_array, collection.get("word").toString(), id_arraylist, classification, personality_arraylist);
 				
 				// 建立刷新Json物件
 				JSONObject word_obj = new JSONObject();

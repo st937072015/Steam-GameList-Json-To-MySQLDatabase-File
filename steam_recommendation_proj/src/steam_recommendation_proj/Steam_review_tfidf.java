@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 
 public class Steam_review_tfidf {
 
-public int tf_idf(String dictionary_read_path, String dictionary_object, String read_appid_path, String steam_review_object, String appid , String output_path, String output_object, LinkedHashMap<Integer, Double> review_content_idf_hashmap) {
+public int tf_idf(JSONArray dictionary_normal_array, String read_appid_path, String steam_review_object, String appid , String output_path, String output_object, LinkedHashMap<Integer, Double> review_content_idf_hashmap) {
 	
 	int review_count = 0;
 	
@@ -56,7 +56,7 @@ public int tf_idf(String dictionary_read_path, String dictionary_object, String 
 		
 		
 	    // 執行計算字詞出現次數功能
-		LinkedHashMap<Integer, Double> review_content_count_hashmap = Steam_review_tfidf.text_count(dictionary_read_path, dictionary_object, review_content_arraylist);
+		LinkedHashMap<Integer, Double> review_content_count_hashmap = Steam_review_tfidf.text_count(dictionary_normal_array, review_content_arraylist);
 		
 		// 執行計算tf值功能
 		LinkedHashMap<Integer, Double> review_content_tf_hashmap =  Steam_review_tfidf.tf(review_content_count_hashmap, review_content_arraylist);
@@ -156,7 +156,7 @@ public int tf_idf(String dictionary_read_path, String dictionary_object, String 
 	
 
   // 計算字詞出現次數	
-  public static LinkedHashMap<Integer, Double> text_count(String dictionary_read_path, String dictionary_object, ArrayList<String> review_content_arraylist) {
+  public static LinkedHashMap<Integer, Double> text_count(JSONArray dictionary_normal_array, ArrayList<String> review_content_arraylist) {
 	
 	// 儲存字詞之count結果hashmap
 	LinkedHashMap<Integer, Double> review_content_count_hashmap = new LinkedHashMap<Integer, Double>();
@@ -165,12 +165,9 @@ public int tf_idf(String dictionary_read_path, String dictionary_object, String 
 	try {
 	
 	
-	// 讀取normal字典檔
-	FileReader dictionary_read_json_reader = new FileReader(dictionary_read_path);
-	JSONParser dictionary_read_parser = new JSONParser();
-	JSONObject dictionary_read_object = (JSONObject) dictionary_read_parser.parse(dictionary_read_json_reader);
-
-	JSONArray dictionary_normal_array = (JSONArray) dictionary_read_object.get(dictionary_object);
+   if (dictionary_normal_array.isEmpty()) {
+	System.out.println("為空");
+}
     
 	
 	Iterator dictionary_normal_it = dictionary_normal_array.iterator();
@@ -234,16 +231,8 @@ public int tf_idf(String dictionary_read_path, String dictionary_object, String 
 
 
 	
-	} catch (
-
-	FileNotFoundException e) {
-		System.out.println(e.toString());
-	} catch (IOException e) {
-		System.out.println(e.toString());
-	} catch (ParseException e) {
-		System.out.println(e.toString());
-	} catch (NullPointerException e) {
-		System.out.println(e.toString());
+	}  catch (NullPointerException e) {
+	   System.out.println(e.toString());
 	}
 	
 	return review_content_count_hashmap;

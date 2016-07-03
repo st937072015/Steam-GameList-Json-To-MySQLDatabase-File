@@ -36,6 +36,18 @@ public class Control_hub9 {
 			
 			JSONArray review_content_idf_array = new JSONArray();
 			
+			
+			
+			// 讀取normal字典檔
+        	FileReader dictionary_read_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_normal.json");
+        	JSONParser dictionary_read_parser = new JSONParser();
+        	JSONObject dictionary_read_object = (JSONObject) dictionary_read_parser.parse(dictionary_read_json_reader);
+
+        	
+        	JSONArray dictionary_normal_array = (JSONArray) dictionary_read_object.get("all_normal_word");
+        	
+        	
+			
 			// 儲存idf結果
 			LinkedHashMap<Integer, Double> review_content_idf_hashmap = new LinkedHashMap<Integer, Double>();
 			
@@ -56,7 +68,7 @@ public class Control_hub9 {
 				
 				Steam_review_tfidf go_tfidf =new Steam_review_tfidf();
 				
-				review_all_count = review_all_count + go_tfidf.tf_idf("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_normal.json", "all_normal_word", "C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\" + collection.get("appid").toString() + ".json", "steam_game_review_clean", collection.get("appid").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_review_tfidf\\", "steam_review_tfidf", review_content_idf_hashmap);
+				review_all_count = review_all_count + go_tfidf.tf_idf(dictionary_normal_array, "C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\" + collection.get("appid").toString() + ".json", "steam_game_review_clean", collection.get("appid").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_review_tfidf\\", "steam_review_tfidf", review_content_idf_hashmap);
 
 			
 

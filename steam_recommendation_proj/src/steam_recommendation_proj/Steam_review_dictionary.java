@@ -76,19 +76,14 @@ public void produce_steam_review_dictionary_normal(String read_path, String read
 }
 
 // 判斷字典中字詞之id與5大人格特質之皮爾森相關系數比重
-public void produce_steam_review_dictionary_advance(String dictionary_text,ArrayList id_arraylist,ArrayList<String> classification, ArrayList<ArrayList<Double>> personality_arraylist) {
+public void produce_steam_review_dictionary_advance(JSONArray LIWC_array,String dictionary_text,ArrayList id_arraylist,ArrayList<String> classification, ArrayList<ArrayList<Double>> personality_arraylist) {
 	
 	
 	
 	try {
 		
 		
-	// 讀取LIWC字典字詞分類類別之json檔
-	FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\LIWC_2001_json\\LIWC_2001_classification_06_27.json");
-	JSONParser parser = new JSONParser();
-	JSONObject read_parser = (JSONObject) parser.parse(json_reader);
 
-	JSONArray LIWC_array = (JSONArray) read_parser.get("LIWC_2001_classification");
 
 	Iterator LIWC_it = LIWC_array.iterator();
 	
