@@ -39,7 +39,7 @@ public class Control_hub9 {
 			
 			
 			// 讀取normal字典檔
-        	FileReader dictionary_read_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_normal.json");
+        	FileReader dictionary_read_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_normal.json");
         	JSONParser dictionary_read_parser = new JSONParser();
         	JSONObject dictionary_read_object = (JSONObject) dictionary_read_parser.parse(dictionary_read_json_reader);
 
