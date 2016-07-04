@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,6 +17,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import com.google.gson.JsonObject;
 
 public class Steam_review_tfidf {
 
@@ -273,6 +276,129 @@ public static LinkedHashMap<Integer, Double> tf(LinkedHashMap<Integer, Double> r
 	
 	
 	return review_content_tf_hashmap;
+	
+}
+
+public void tfidf_join(String appid, String read_appid_path, String steam_review_tfidf_object, JSONObject steam_review_idf_dictionary_object, String output_path, String output_object) {
+	
+	
+		
+		
+		
+		try {
+		
+		// 讀取遊戲評論json檔
+		FileReader steam_review_tfidf_read_json_reader = new FileReader(read_appid_path);
+		JSONParser steam_review_tfidf_read_parser = new JSONParser();
+		JSONObject steam_review_tfidf_read_object = (JSONObject) steam_review_tfidf_read_parser.parse(steam_review_tfidf_read_json_reader);
+
+		JSONArray steam_review_tfidf_array = (JSONArray) steam_review_tfidf_read_object.get(steam_review_tfidf_object);
+	    
+       
+
+		Iterator steam_review_tfidf_it = steam_review_tfidf_array.iterator();
+		
+		JSONArray output_array = new JSONArray();
+		
+		
+		
+		
+			
+		
+  int review_count = 1;
+		
+ while (steam_review_tfidf_it.hasNext()) {
+		       
+			//debug
+			System.out.println("遊戲appid為:" + appid + "，第"+ (review_count) +"筆評論");
+			
+			
+			JSONObject collection = (JSONObject) steam_review_tfidf_it.next();
+			
+			
+			JSONArray review_tfidf_arraylist = (JSONArray) collection.get("review_tfidf");
+		    
+		
+			JSONObject steam_review_tf_object = (JSONObject)review_tfidf_arraylist.get(1);
+		
+			
+			// 儲存tf與idf進行相乘運算後的hashmap
+			JSONObject review_content_tfidf_join_object = new JSONObject();
+			
+			
+	
+	// 將tf與idf進行相乘
+	for(Iterator idf_iterator = steam_review_idf_dictionary_object.keySet().iterator(); idf_iterator.hasNext();) {
+		
+		String a = (String)idf_iterator.next();
+		
+		
+		for (Iterator tf_iterator = steam_review_tf_object.keySet().iterator(); tf_iterator.hasNext();) {
+			
+			String b = (String)tf_iterator.next();
+
+			if ( b.equals(a)) {
+				
+				
+				review_content_tfidf_join_object.put(b,(double) steam_review_tf_object.get(b)*(double) steam_review_idf_dictionary_object.get(a));
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+		}
+		
+	
+	}
+	
+	// 建立刷新Json物件
+	JSONObject tfidf_join_obj = new JSONObject();
+	
+	tfidf_join_obj.put("count", review_tfidf_arraylist.get(0));
+	tfidf_join_obj.put("tf", review_tfidf_arraylist.get(1));
+	tfidf_join_obj.put("tfidf", review_content_tfidf_join_object);
+	
+	
+	output_array.add(tfidf_join_obj);
+	
+	
+	review_count++;
+	
+ }
+ 
+ // 輸出所有計算結果之json檔案
+ FileOutputStream fos = new FileOutputStream(output_path + appid +".json");
+ Writer json_writer = new OutputStreamWriter(fos, "UTF8");
+ 
+ // 寫入JSON物件
+ json_writer.write("{" + "\"" + output_object + "\" :" + output_array.toJSONString() + "}");
+ 
+ // 關閉寫入
+ json_writer.flush();
+ json_writer.close();
+ 
+ 
+ 
+ 
+	} catch (
+
+	FileNotFoundException e) {
+					System.out.println(e.toString());
+	} catch (IOException e) {
+					System.out.println(e.toString());
+	} catch (ParseException e) {
+					System.out.println(e.toString());
+	} catch (NullPointerException e) {
+					System.out.println(e.toString());
+	}
+	
+
+	
+	
 	
 }
 
