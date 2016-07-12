@@ -25,7 +25,7 @@ public void attribute_tag_set(String appid, Set<String> tag_set) {
 	try {
 
 			// 進行已過濾的遊戲id之評論json檔案讀取
-			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_game_tag\\" + appid + ".json" );
+			FileReader steamreader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_game_tag\\" + appid +"_attribute_tag.json" );
 
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
