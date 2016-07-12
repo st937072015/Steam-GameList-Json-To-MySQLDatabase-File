@@ -63,12 +63,22 @@ public class Control_hub13 {
 			// 轉換tag之set的array
 			ArrayList<String> tag_convert = new ArrayList<String>(tag_set);
 			
+			// 轉換為JSONArray
+			JSONArray tag_convert_json = new JSONArray();
+			for (int i = 0; i < tag_convert.size(); i++) {
+				
+				
+				tag_convert_json.add(tag_convert.get(i));
+				
+				
+			}
+			
 			// 建立屬性標籤字典
 			FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_attribute_tag_dictionary.json");
 			Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 			 
 			// 寫入JSON物件
-			json_writer.write("{" + "\"attribute_tag_dictionary\" :" + ((JSONArray) tag_convert).toJSONString() + "}");
+			json_writer.write("{" + "\"attribute_tag_dictionary\" :" + (tag_convert_json).toJSONString() + "}");
 			 
 			// 關閉寫入
 			json_writer.flush();
