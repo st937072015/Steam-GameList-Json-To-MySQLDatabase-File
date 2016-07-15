@@ -19,27 +19,20 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.remote.server.handler.MaximizeWindow;
 
-public class Control_hub9 {
+public class Control_hub12 {
 
 	public static void main(String[] args) {
 
 		try {
 
-			 // 讀取遊戲清單
-			FileReader list_250_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_06_11_sample_250.json");
-			JSONParser list_250_parser = new JSONParser();
-			JSONObject list_250_read_parser = (JSONObject) list_250_parser.parse(list_250_json_reader);
+			
 
-			JSONArray list_250_array = (JSONArray) list_250_read_parser.get("app_sample_250");
+            JSONArray review_content_idf_array = new JSONArray();
+            
 
-			Iterator list_250_it = list_250_array.iterator();
-			
-			JSONArray review_content_idf_array = new JSONArray();
-			
-			
-			
-			// 讀取normal字典檔
-        	FileReader dictionary_read_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_review_dictionary_normal.json");
+            
+        	// 讀取normal字典檔
+        	FileReader dictionary_read_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_normal.json");
         	JSONParser dictionary_read_parser = new JSONParser();
         	JSONObject dictionary_read_object = (JSONObject) dictionary_read_parser.parse(dictionary_read_json_reader);
 
@@ -47,38 +40,43 @@ public class Control_hub9 {
         	JSONArray dictionary_normal_array = (JSONArray) dictionary_read_object.get("all_normal_word");
         	
         	
-			
+            
+
 			// 儲存idf結果
-			LinkedHashMap<Integer, Double> review_content_idf_hashmap = new LinkedHashMap<Integer, Double>();
+			LinkedHashMap<String, Double> review_content_idf_hashmap = new LinkedHashMap<String, Double>();
+			
 			
 			
 			// 計算全部review數量
 			int review_all_count = 0;
 			
-			Steam_review_tfidf go_tfidf =new Steam_review_tfidf();
-
-			// 取出Iterator中的遊戲資料
-			while (list_250_it.hasNext()) {
-           
-				
-				JSONObject collection = (JSONObject) list_250_it.next();
+			
+			Steam_user_review_tfidf go_tfidf =new Steam_user_review_tfidf();
+			
+			
+			// 取出Iterator中的評論作者的遊戲評論資料
+		
+            for (int i = 1; i < 328973; i++) {
 				
 			
+				
+
+					
 			    
 				
 				
 				
 				
-				review_all_count = review_all_count + go_tfidf.tf_idf(dictionary_normal_array, "C:\\Users\\John-Wall\\Desktop\\Steam_game_review_clean\\" + collection.get("appid").toString() + ".json", "steam_game_review_clean", collection.get("appid").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_review_tfidf\\", "steam_review_tfidf", review_content_idf_hashmap);
+				review_all_count = review_all_count + go_tfidf.idf("C:\\Users\\John-Wall\\Desktop\\Steam_user_review_tfidf\\" + String.valueOf(i) + ".json", "steam_review_tfidf", String.valueOf(i), review_content_idf_hashmap);
 
+				
+               }
 			
-
-			}
 			
 			// debug
 			System.out.println(review_all_count);
-	       
-			for (int key : review_content_idf_hashmap.keySet()) {
+		       
+			for (String key : review_content_idf_hashmap.keySet()) {
 				
 				
 				
@@ -93,16 +91,20 @@ public class Control_hub9 {
 			
 			
 			 // 建立idf分數參考字典
-			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\steam_game_review_idf.json");
+			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\steam_user_review_idf.json");
 			 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 
 			 // 寫入JSON物件
-			 json_writer.write("{" + "\"steam_review_idf\" :" + review_content_idf_array.toJSONString() + "}");
+			 json_writer.write("{" + "\"steam_user_review_idf\" :" + review_content_idf_array.toJSONString() + "}");
 			 
 			 // 關閉寫入
 			 json_writer.flush();
 			 json_writer.close();
 			
+			
+			
+			
+	
 
 
 		} catch (

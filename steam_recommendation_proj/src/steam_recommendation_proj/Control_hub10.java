@@ -58,7 +58,7 @@ public class Control_hub10 {
 			// 計算全部review數量
 			int review_all_count = 0;
 			
-			
+			Steam_review_tfidf go_tfidf =new Steam_review_tfidf();
 
 			// 取出Iterator中的評論作者的遊戲評論資料
 			while (list_user_it.hasNext()) {
@@ -70,7 +70,7 @@ public class Control_hub10 {
 			    
 				
 				
-				Steam_review_tfidf go_tfidf =new Steam_review_tfidf();
+				
 				
 				review_all_count = review_all_count + go_tfidf.tf_idf(dictionary_normal_array, "C:\\Users\\John-Wall\\Desktop\\Steam_user_review_clean\\" + collection.get("id").toString() + ".json", "steam_user_respective_review_clean", collection.get("id").toString(), "C:\\Users\\John-Wall\\Desktop\\Steam_user_review_tfidf\\", "steam_review_tfidf", review_content_idf_hashmap);
 
