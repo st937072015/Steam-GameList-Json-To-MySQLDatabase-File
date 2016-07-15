@@ -41,7 +41,7 @@ public class Control_hub12 {
 			int review_all_count = 0;
 			
 			
-			Steam_user_review_tfidf go_tfidf =new Steam_user_review_tfidf();
+			Steam_user_review_idf go_tfidf =new Steam_user_review_idf();
 			
 			
 			// 取出Iterator中的評論作者的遊戲評論資料

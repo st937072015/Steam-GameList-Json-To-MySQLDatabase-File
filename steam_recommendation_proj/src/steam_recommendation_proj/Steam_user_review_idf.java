@@ -20,7 +20,7 @@ import org.json.simple.parser.ParseException;
 
 import com.google.gson.JsonObject;
 
-public class Steam_user_review_tfidf {
+public class Steam_user_review_idf {
 
 public int idf(String read_appid_path, String steam_review_object, String appid , LinkedHashMap<String, Double> review_content_idf_hashmap) {
 	
