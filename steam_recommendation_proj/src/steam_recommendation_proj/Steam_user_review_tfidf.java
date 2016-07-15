@@ -72,13 +72,14 @@ public int idf(String read_appid_path, String steam_review_object, String appid 
 				
 				review_content_idf_hashmap.put(key, 0.0);
 				
+
 				
 				review_content_idf_hashmap.put(key, review_content_idf_hashmap.get(key) + 1.0);
 				
 				
 			}else {
 				
-				
+
 				review_content_idf_hashmap.put(key, review_content_idf_hashmap.get(key) + 1.0);
 				
 				

@@ -10,5 +10,8 @@
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/commons-lang3-3.4.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/selenium-java-2.53.1.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/selenium-server-standalone-2.53.1.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jackson-annotations-2.8.0.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jackson-core-2.8.0.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jackson-databind-2.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

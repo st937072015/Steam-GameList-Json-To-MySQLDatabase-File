@@ -19,6 +19,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.remote.server.handler.MaximizeWindow;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Control_hub12 {
 
 	public static void main(String[] args) {
@@ -27,19 +29,7 @@ public class Control_hub12 {
 
 			
 
-            JSONArray review_content_idf_array = new JSONArray();
-            
 
-            
-        	// 讀取normal字典檔
-        	FileReader dictionary_read_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_normal.json");
-        	JSONParser dictionary_read_parser = new JSONParser();
-        	JSONObject dictionary_read_object = (JSONObject) dictionary_read_parser.parse(dictionary_read_json_reader);
-
-        	
-        	JSONArray dictionary_normal_array = (JSONArray) dictionary_read_object.get("all_normal_word");
-        	
-        	
             
 
 			// 儲存idf結果
@@ -87,9 +77,13 @@ public class Control_hub12 {
 				
 			}
 			
-			review_content_idf_array.add(review_content_idf_hashmap);
+	
 			
 			
+			
+
+			
+			/*
 			 // 建立idf分數參考字典
 			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\steam_user_review_idf.json");
 			 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
@@ -100,9 +94,12 @@ public class Control_hub12 {
 			 // 關閉寫入
 			 json_writer.flush();
 			 json_writer.close();
+			*/
 			
+			// 改使用jackson json lib 轉換大型json檔案(**simplejson較不適合大型json檔案之轉換**)
+			ObjectMapper om  = new ObjectMapper();
 			
-			
+			om.writeValue(new File("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\steam_user_review_idf.json"), review_content_idf_hashmap);
 			
 	
 
@@ -112,8 +109,6 @@ public class Control_hub12 {
 		FileNotFoundException e) {
 			System.out.println(e.toString());
 		} catch (IOException e) {
-			System.out.println(e.toString());
-		} catch (ParseException e) {
 			System.out.println(e.toString());
 		} catch (NullPointerException e) {
 			System.out.println(e.toString());

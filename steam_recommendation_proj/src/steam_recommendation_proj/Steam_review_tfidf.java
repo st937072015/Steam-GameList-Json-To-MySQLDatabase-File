@@ -327,33 +327,26 @@ public void tfidf_join(String appid, String read_appid_path, String steam_review
 			
 			
 	
-	// 將tf與idf進行相乘
-	for(Iterator idf_iterator = steam_review_idf_dictionary_object.keySet().iterator(); idf_iterator.hasNext();) {
-		
-		String a = (String)idf_iterator.next();
-		
+	// 將tf與idf進行相乘(已優化)
 		
 		for (Iterator tf_iterator = steam_review_tf_object.keySet().iterator(); tf_iterator.hasNext();) {
 			
 			String b = (String)tf_iterator.next();
 
-			if ( b.equals(a)) {
+		
 				
 				
-				review_content_tfidf_join_object.put(b,(double) steam_review_tf_object.get(b)*(double) steam_review_idf_dictionary_object.get(a));
+				review_content_tfidf_join_object.put(b,(double) steam_review_tf_object.get(b)*(double) steam_review_idf_dictionary_object.get(b));
 				
 				
 				
-			}
 			
-			
-			
-			
+				
 			
 		}
 		
 	
-	}
+	
 	
 	// 建立刷新Json物件
 	JSONObject tfidf_join_obj = new JSONObject();
