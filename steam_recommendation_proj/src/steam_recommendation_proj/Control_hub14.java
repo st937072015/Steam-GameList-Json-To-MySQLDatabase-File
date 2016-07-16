@@ -31,7 +31,7 @@ public class Control_hub14 {
 			
 			
 			
-			// 讀取normal字典檔
+			// 讀取idf字典檔
         	FileReader tfidf_dictionary_read_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\steam_user_review_idf.json");
         	JSONParser tfidf_dictionary_read_parser = new JSONParser();
         	JSONObject tfidf_dictionary_read_object = (JSONObject) tfidf_dictionary_read_parser.parse(tfidf_dictionary_read_json_reader);
