@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -17,6 +18,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.remote.server.handler.MaximizeWindow;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Control_hub8 {
 
@@ -31,12 +34,12 @@ public class Control_hub8 {
 
 			JSONArray normal_array = (JSONArray) normal_read_parser.get("all_normal_word");
 
-			Iterator normal_it = normal_array.iterator();
+			// 取得一般字典檔之hashmap
+			HashMap<String, String> normal_hashmap = (HashMap<String, String>) normal_array.get(0);
 			
 			
 			
-			JSONArray output_array= new JSONArray();
-			
+		
 			
 			// 讀取LIWC字典字詞分類類別之json檔
 			FileReader json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\LIWC_2001_json\\LIWC_2001_classification_06_27.json");
@@ -46,19 +49,21 @@ public class Control_hub8 {
 			JSONArray LIWC_array = (JSONArray) read_parser.get("LIWC_2001_classification");
 			
 			
-			
-			
-			
+			// 儲存字詞對映之人格特質比重分數之hashmap
+			HashMap<String, ArrayList<ArrayList<Double>>> word_hashmap = new HashMap<String, ArrayList<ArrayList<Double>>>();
+		
+				
 			
 
-			// 取出Iterator中的字典字詞資料
-			while (normal_it.hasNext()) {
-           
+			
+			
+           	// 取出字詞
+			 for (String key: normal_hashmap.keySet()) {
 				
-				JSONObject collection = (JSONObject) normal_it.next(); 
+                 
 				
-				
-				//System.out.println(collection.get("word").toString());
+				// Debug
+				System.out.println("key:" + key + "，" + "key值:" + normal_hashmap.get(key));
 				
 				ArrayList id_arraylist = new ArrayList();
 				ArrayList<String> classification = new ArrayList<String>();
@@ -67,10 +72,9 @@ public class Control_hub8 {
 				
 				Steam_review_dictionary normal =new Steam_review_dictionary();
 
-				normal.produce_steam_review_dictionary_advance(LIWC_array, collection.get("word").toString(), id_arraylist, classification, personality_arraylist);
+				normal.produce_steam_review_dictionary_advance(LIWC_array, normal_hashmap.get(key), id_arraylist, classification, personality_arraylist);
 				
-				// 建立刷新Json物件
-				JSONObject word_obj = new JSONObject();
+	
 				
 				
 				
@@ -94,30 +98,16 @@ public class Control_hub8 {
     
               personality_arraylist.add(personality_none_arraylist);
              }
-				
+			 	
                
-				word_obj.put("word", collection.get("word").toString());
-				//word_obj.put("id", id_arraylist);
-				//word_obj.put("classification", classification);
-				
-               
-				System.out.println(collection.get("word").toString());
-				//System.out.println(id_arraylist);
-				//System.out.println(classification);
-				System.out.println(personality_arraylist);
-               
-				word_obj.put("personality", personality_arraylist);
-				output_array.add(word_obj);
-				
+               word_hashmap.put(key, personality_arraylist);
+
 
 			}
-			
-			
-			
 
 		
-			
-			 // 建立第一種對映方法之字典
+			/*
+			 // 建立第二種對映方法之字典
 			 FileOutputStream fos = new FileOutputStream("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_advance.json");
 			 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
 			 
@@ -127,7 +117,12 @@ public class Control_hub8 {
 			 // 關閉寫入
 			 json_writer.flush();
 			 json_writer.close();
-			
+			*/
+			 
+			// 改使用jackson json lib 轉換大型json檔案(**simplejson較不適合大型json檔案之轉換**)
+			ObjectMapper om  = new ObjectMapper();
+					
+			om.writeValue(new File("C:\\Users\\John-Wall\\Desktop\\Steam_review_dictionary\\Steam_user_review_dictionary_advance.json"), word_hashmap);
 			
 
 

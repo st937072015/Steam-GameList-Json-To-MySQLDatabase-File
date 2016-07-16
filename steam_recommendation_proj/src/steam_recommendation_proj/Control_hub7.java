@@ -60,10 +60,10 @@ public class Control_hub7 {
            	// 取出字詞
 			 for (String key: normal_hashmap.keySet()) {
 				
-
+                 
 				
-				
-				//System.out.println(collection.get("word").toString());
+				// Debug
+				System.out.println("key:" + key + "，" + "key值:" + normal_hashmap.get(key));
 				
 				ArrayList id_arraylist = new ArrayList();
 				ArrayList<String> classification = new ArrayList<String>();
