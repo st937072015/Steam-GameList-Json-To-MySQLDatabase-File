@@ -38,10 +38,13 @@ public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Doub
 
 	Iterator steam_review_it = steam_review_array.iterator();
 	
-	
+
 	JSONArray output_array= new JSONArray();
 	
-	//
+	if (steam_review_array.isEmpty()) {
+		System.exit(-1);
+	}
+
 	HashMap<String, Double> review_personality_tfidf_hashmap = new HashMap<String, Double>();
 	
 	// 先給予初始值
@@ -56,6 +59,10 @@ public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Doub
 	
 	// 取出Iterator中的評論tfidf資料
 	while (steam_review_it.hasNext()) {
+		
+		
+		
+		
        
 		//debug
 		System.out.println("遊戲appid為:" + appid + "，第"+ (review_count+1) +"筆評論");
@@ -74,7 +81,13 @@ public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Doub
        for (String  key : review_tfidf_hashmap.keySet()) {
 		
     	   
-    	   
+    	   if (review_tfidf_hashmap.get(key) == null) {
+			
+    		   System.out.println("空");
+    		   System.exit(-1);
+    		   
+    		   
+		}
     	   
     	   
     	   
@@ -134,7 +147,7 @@ public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Doub
 		output_array.add(review_personality_tfidf_hashmap);
 	
 	
-
+/*
 	 // 輸出所有計算結果之json檔案
 	 FileOutputStream fos = new FileOutputStream(output_path + appid +".json");
 	 Writer json_writer = new OutputStreamWriter(fos, "UTF8");
@@ -146,7 +159,7 @@ public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Doub
 	 json_writer.flush();
 	 json_writer.close();
 	
-	
+	*/
 	
 	
 	} catch (
