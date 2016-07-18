@@ -127,47 +127,40 @@ public void attribute_tag_hashmap(String appid, ArrayList<String> tag_dictionary
 		
 		
 	}
-public void attribute_tag_merge(String appid, String personality_path, String read_object, String output_path) {
+public void attribute_tag_merge(String appid, LinkedHashMap<String, LinkedHashMap<String, Double>> review_none_merge , LinkedHashMap<String, LinkedHashMap<String, Double>> store_merge_hashmap) {
 	
 	
-
+           // 合併過後的hashmap
+		   LinkedHashMap<String, Double> merge_hashmap = new LinkedHashMap<String, Double>();
 	
 	
 	
 	try {
 		   
-		   // 合併過後的hashmap
-		   LinkedHashMap<String, Double> merge_hashmap = new LinkedHashMap<String, Double>();
 		
 		
+		
 
-			// 進行已過濾的遊戲id之人格特質計算後分數json檔案讀取
-			FileReader steamreader = new FileReader(personality_path + appid +".json" );
 
-			JSONParser jsonParser = new JSONParser();
+			// 人格特質分數之linkedhashmap
+			LinkedHashMap<String, Double> personality_score = (LinkedHashMap<String, Double>)review_none_merge.get(appid);
 			
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(steamreader);
-
-			// 讀取已過濾的遊戲id之人格特質計算後分數之id物件arraylist
-			JSONArray app = (JSONArray) jsonObject.get(read_object);
-
-			// 人格特質分數之hashmap
-			HashMap<String, Double> personality_score = (HashMap<String, Double>)app.get(0);
-			
-			System.out.println(app.get(0).toString());
+			System.out.println(personality_score.toString());
 			
 			
 			
 			
 			// 進行遊戲之tag清單json檔案讀取
 			FileReader steamreader2 = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_game_tag_hashmap\\" + appid +".json" );
-
+            
+			JSONParser jsonParser = new JSONParser();
+			
 			JSONObject jsonObject2 = (JSONObject) jsonParser.parse(steamreader2);
 
-			// 讀取有遊戲標籤tag清單
+			// 讀取遊戲標籤tag清單
 			JSONArray app2 = (JSONArray) jsonObject2.get("steam_game_tag_hashmap");
 		
-			// 人格特質分數之hashmap
+			// 屬性標籤分數之hashmap
 			HashMap<String, Double> tag_score = (HashMap<String, Double>)app2.get(0);
 			
 			
@@ -200,14 +193,9 @@ public void attribute_tag_merge(String appid, String personality_path, String re
 			}
 			
 			
-
+			store_merge_hashmap.put(appid, merge_hashmap);
 			
-			 // 輸出所有計算結果之json檔案
-			 FileOutputStream fos = new FileOutputStream(output_path + appid +".json");
-			 
-			 ObjectMapper om  = new ObjectMapper();
-							
-		     om.writeValue(new OutputStreamWriter(fos, "UTF8"), merge_hashmap);
+
 			
 		
 			

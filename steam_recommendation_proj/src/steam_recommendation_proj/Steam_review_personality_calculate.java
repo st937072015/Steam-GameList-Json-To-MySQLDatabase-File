@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 
 public class Steam_review_personality_calculate {
 
-public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Double>>> steam_review_advance_dictionary_hashmap, String read_appid_path, String steam_review_object, String appid , String output_path, String output_object) {
+public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Double>>> steam_review_advance_dictionary_hashmap, String read_appid_path, String steam_review_object, String appid ,LinkedHashMap<String, LinkedHashMap<String, Double>> output_map) {
 	
 	int review_count = 0;
 	
@@ -39,13 +39,10 @@ public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Doub
 	Iterator steam_review_it = steam_review_array.iterator();
 	
 
-	JSONArray output_array= new JSONArray();
-	
-	if (steam_review_array.isEmpty()) {
-		System.exit(-1);
-	}
 
-	HashMap<String, Double> review_personality_tfidf_hashmap = new HashMap<String, Double>();
+
+
+	LinkedHashMap<String, Double> review_personality_tfidf_hashmap = new LinkedHashMap<String, Double>();
 	
 	// 先給予初始值
 	review_personality_tfidf_hashmap.put("0", 0.0);
@@ -80,15 +77,7 @@ public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Doub
 	   // 評論tfidf計算結果之hashmap開始進行人格特質arraylist相乘並相加
        for (String  key : review_tfidf_hashmap.keySet()) {
 		
-    	   
-    	   if (review_tfidf_hashmap.get(key) == null) {
-			
-    		   System.out.println("空");
-    		   System.exit(-1);
-    		   
-    		   
-		}
-    	   
+
     	   
     	   
     	   ArrayList<ArrayList<Double>> personality_arraylist = steam_review_advance_dictionary_hashmap.get(key);
@@ -143,8 +132,8 @@ public void personality_tfidf_calculate(HashMap<String, ArrayList<ArrayList<Doub
 	
 	
 	
-	    // 計算相乘結果並相除之hashmap塞入JSONArray中並輸出
-		output_array.add(review_personality_tfidf_hashmap);
+	    // 計算相乘結果並相除之hashmap塞入LinkedHashmap中並輸出
+		output_map.put(appid, review_personality_tfidf_hashmap);
 	
 	
 /*

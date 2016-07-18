@@ -20,6 +20,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.remote.server.handler.MaximizeWindow;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Control_hub16 {
 
 	public static void main(String[] args) {
@@ -38,7 +40,8 @@ public class Control_hub16 {
         	
         	HashMap<String, ArrayList<ArrayList<Double>>> steam_review_advance_dictionary_hashmap = (HashMap<String, ArrayList<ArrayList<Double>>>)tfidf_dictionary_array.get(0);
         	
-        	
+        	// 儲存計算結果
+        	LinkedHashMap<String, LinkedHashMap<String, Double>> output_map = new LinkedHashMap<String, LinkedHashMap<String, Double>>();
         	
         	
          
@@ -69,14 +72,17 @@ public class Control_hub16 {
 			
            
 				
-				go_personality_tfidf.personality_tfidf_calculate(steam_review_advance_dictionary_hashmap, "C:\\Users\\John-Wall\\Desktop\\Steam_user_review_tfidf_join\\" + String.valueOf(i) + ".json", "steam_user_review_tfidf_join", String.valueOf(i), "C:\\Users\\John-Wall\\Desktop\\Steam_user_review_personality_tfidf_score\\", "steam_review_personality_tfidf");
+				go_personality_tfidf.personality_tfidf_calculate(steam_review_advance_dictionary_hashmap, "C:\\Users\\John-Wall\\Desktop\\Steam_user_review_tfidf_join\\" + String.valueOf(i) + ".json", "steam_user_review_tfidf_join", String.valueOf(i), output_map);
 			    
 				
 
 
 			}
 
-			
+			// json檔案計算結果輸出
+			ObjectMapper om  = new ObjectMapper();
+									
+			om.writeValue(new File("D:\\steam_personality\\第二種人格特質評論對映方法_僅平均評論作者第一次版本.json"), output_map);
 
 
 

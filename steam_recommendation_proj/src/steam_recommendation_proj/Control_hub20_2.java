@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class Control_hub20 {
+public class Control_hub20_2 {
 
 	public static void main(String[] args) {
 
@@ -49,7 +49,7 @@ public class Control_hub20 {
 			// 讀取第一次做完平均的評論作者之5大人格特質分數
 			ObjectMapper om  = new ObjectMapper();
 			
-			LinkedHashMap<String, LinkedHashMap<String, Double>> user_personality_tfidf_hashmap = om.readValue(new File("D:\\steam_personality\\Rock\\Rock_第二種人格特質評論對映方法_僅平均評論作者第一次版本.json"), LinkedHashMap.class);
+			LinkedHashMap<String, LinkedHashMap<String, Double>> user_personality_tfidf_hashmap = om.readValue(new File("D:\\steam_personality\\Chang\\Chang_第二種人格特質評論對映方法_僅平均評論作者第一次版本.json"), LinkedHashMap.class);
 			
 			
 			// 儲存第2次作平均的評論作者之5大人格特質
@@ -77,7 +77,7 @@ public class Control_hub20 {
 			
 			 // 輸出所有計算結果之json檔案
 							
-		     om.writeValue(new File("D:\\steam_personality\\Rock\\Rock_第二種人格特質評論對映方法_平均評論作者第二次未與屬性標籤合併版本.json"), output_hashmap);
+		     om.writeValue(new File("D:\\steam_personality\\Chang\\Chang_第二種人格特質評論對映方法_平均評論作者第二次未與屬性標籤合併版本.json"), output_hashmap);
 			
 			 
 			
