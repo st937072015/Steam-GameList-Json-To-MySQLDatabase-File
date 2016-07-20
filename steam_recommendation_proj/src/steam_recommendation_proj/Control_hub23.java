@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class Control_hub22 {
+public class Control_hub23 {
 
 	public static void main(String[] args) {
 
@@ -33,8 +33,11 @@ public class Control_hub22 {
 			JSONArray list_250_array = (JSONArray) list_250_read_parser.get("app_sample_250");
 
 			Iterator list_250_it = list_250_array.iterator();
-			
-		    Mairesse_calculate go_calculate = new Mairesse_calculate();
+		    
+		    // 馬瑞斯法計算txt檔案5大人格特質分數功能
+			PersonalityRecognizer p = new PersonalityRecognizer(new File("C:\\Users\\John-Wall\\Desktop\\PersonalityRecognizer\\PersonalityRecognizer.properties"));
+		    
+		    
 			
 			// 取出Iterator中的遊戲資料
 			while (list_250_it.hasNext()) {
@@ -42,7 +45,11 @@ public class Control_hub22 {
 				
 				JSONObject collection = (JSONObject) list_250_it.next();
 				
-				go_calculate.json_convert_text_file("C:\\Users\\John-Wall\\Desktop\\Steam_game_review\\", "steam_review", collection.get("appid").toString(), "D:\\steam_personality\\Mairesse\\txt\\review\\");
+				// debug
+				System.out.println("遊戲appid為:" + collection.get("appid").toString());
+				
+				// computeScoresOverCorpus(第1個參數為要計算的txt資料夾檔案目標路徑, (第2個參數為設定預測模型 model index *0為LinearRegression 1為M5P 2為M5P-R 3為SVM*), 第2個參數為計算完畢後arff檔案輸出路徑)
+				p.computeScoresOverCorpus(new File("D:\\steam_personality\\Mairesse\\txt\\review\\" + collection.get("appid").toString()), p.loadWekaModels(2, false, true), new File("D:\\steam_personality\\Mairesse\\arff\\review_arff\\" + collection.get("appid").toString() + ".arff"));
 				
 				
 

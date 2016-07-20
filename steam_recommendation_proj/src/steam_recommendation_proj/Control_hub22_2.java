@@ -37,7 +37,7 @@ public class Control_hub22_2 {
            
 
 				
-				go_calculate.json_convert_text_file("C:\\Users\\John-Wall\\Desktop\\Steam_user_review\\", "steam_user_respective_review", String.valueOf(i), "D:\\steam_personality\\Mairesse\\user_review\\");
+				go_calculate.json_convert_text_file("C:\\Users\\John-Wall\\Desktop\\Steam_user_review\\", "steam_user_respective_review", String.valueOf(i), "D:\\steam_personality\\Mairesse\\txt\\user_review\\");
 				
 				
 
