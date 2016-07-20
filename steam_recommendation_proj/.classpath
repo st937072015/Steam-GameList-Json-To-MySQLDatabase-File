@@ -13,5 +13,9 @@
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jackson-annotations-2.8.0.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jackson-core-2.8.0.jar"/>
 	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jackson-databind-2.8.0.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jmrc.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/jackson-dataformat-csv-2.8.1.jar"/>
+	<classpathentry kind="lib" path="D:/正式論文程式檔案/Java library/weka.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

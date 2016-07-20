@@ -34,10 +34,8 @@ public class Control_hub22 {
 
 			Iterator list_250_it = list_250_array.iterator();
 			
-
-		      Mairesse_calculate go_calculate = new Mairesse_calculate();
+		    Mairesse_calculate go_calculate = new Mairesse_calculate();
 			
-
 			// 取出Iterator中的遊戲資料
 			while (list_250_it.hasNext()) {
            
