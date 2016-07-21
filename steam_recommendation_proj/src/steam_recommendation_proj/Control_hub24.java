@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
@@ -17,12 +19,12 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class Control_hub18 {
+public class Control_hub24 {
 
 	public static void main(String[] args) {
 
 		try {
-
+			
 			 // 讀取遊戲清單
 			FileReader list_250_json_reader = new FileReader("C:\\Users\\John-Wall\\Desktop\\Steam_valid\\SteamGameList_2016_06_11_sample_250.json");
 			JSONParser list_250_parser = new JSONParser();
@@ -31,48 +33,47 @@ public class Control_hub18 {
 			JSONArray list_250_array = (JSONArray) list_250_read_parser.get("app_sample_250");
 
 			Iterator list_250_it = list_250_array.iterator();
+		    
+			// 將arff檔轉換為csv檔
+			Mairesse_calculate mc = new Mairesse_calculate();
+		    
+		    
 			
-			
-			
-			
-			// 讀取要合併之人格特質相乘之hashmap
-			
-			ObjectMapper om = new ObjectMapper();
-			
-			
-			
-			LinkedHashMap<String, LinkedHashMap<String, Double>> review_none_merge = om.readValue(new File("D:\\steam_personality\\Rock_第一種人格特質評論對映方法_未與屬性標籤合併版本.json"), LinkedHashMap.class);
-			
-	        
-			
-			
-			// 儲存所有遊戲之合併過後之linkedhashmap
-			LinkedHashMap<String, LinkedHashMap<String, Double>> store_merge_hashmap = new LinkedHashMap<String, LinkedHashMap<String, Double>>();
-			
-			
-			
-
-			Steam_attribute_tag_merge go_tag_merge = new Steam_attribute_tag_merge();
-			
-			
-
 			// 取出Iterator中的遊戲資料
 			while (list_250_it.hasNext()) {
            
 				
 				JSONObject collection = (JSONObject) list_250_it.next();
 				
+				// 排除無效評論作者
+				File check_file =new File("D:\\steam_personality\\Mairesse\\arff\\review_arff\\" + collection.get("appid").toString() + ".arff");
 				
-				go_tag_merge.attribute_tag_merge(collection.get("appid").toString(), review_none_merge, store_merge_hashmap);
+				if (check_file.exists()) {
 				
+				// debug
+				System.out.println("遊戲appid為:" + collection.get("appid").toString());				
+			
+				mc.convert_arff_to_csv("D:\\steam_personality\\Mairesse\\arff\\review_arff\\", "D:\\steam_personality\\Mairesse\\csv\\review_csv\\", collection.get("appid").toString());
+				
+				
+				}else{
+						
+					// debug
+					System.out.println("遊戲appid為:" + collection.get("appid").toString() + "為空值評論遊戲!!");
+					
+					
+				}
 
 
 			}
-
 			
-			 // 輸出所有合併結果之json檔案
-						
-		     om.writeValue(new File("D:\\steam_personality\\Rock_第一種人格特質評論對映方法_已與屬性標籤合併版本.json"), store_merge_hashmap);
+           
+			
+		
+			
+			 
+			
+
 
 
 		} catch (

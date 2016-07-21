@@ -49,7 +49,7 @@ public class Control_hub23_2 {
 					
 					
 					// debug
-					System.out.println("遊戲appid為:" + String.valueOf(i) + "為空值評錄作者!!");
+					System.out.println("遊戲appid為:" + String.valueOf(i) + "為空值評論作者!!");
 					
 					
 				}

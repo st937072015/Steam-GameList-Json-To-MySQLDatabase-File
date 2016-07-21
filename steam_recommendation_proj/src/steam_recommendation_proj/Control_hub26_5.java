@@ -2,10 +2,9 @@ package steam_recommendation_proj;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
@@ -17,7 +16,7 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class Control_hub18 {
+public class Control_hub26_5 {
 
 	public static void main(String[] args) {
 
@@ -41,7 +40,7 @@ public class Control_hub18 {
 			
 			
 			
-			LinkedHashMap<String, LinkedHashMap<String, Double>> review_none_merge = om.readValue(new File("D:\\steam_personality\\Rock_第一種人格特質評論對映方法_未與屬性標籤合併版本.json"), LinkedHashMap.class);
+			LinkedHashMap<String, LinkedHashMap<String, Double>> review_none_merge = om.readValue(new File("D:\\steam_personality\\Mairesse\\Mairesse_第二種人格特質評論對映方法_平均評論作者第二次未與屬性標籤合併版本.json"), LinkedHashMap.class);
 			
 	        
 			
@@ -72,7 +71,9 @@ public class Control_hub18 {
 			
 			 // 輸出所有合併結果之json檔案
 						
-		     om.writeValue(new File("D:\\steam_personality\\Rock_第一種人格特質評論對映方法_已與屬性標籤合併版本.json"), store_merge_hashmap);
+		     om.writeValue(new File("D:\\steam_personality\\Mairesse\\Mairesse_第二種人格特質評論對映方法_平均評論作者第二次已與屬性標籤合併版本.json"), store_merge_hashmap);
+			
+
 
 
 		} catch (

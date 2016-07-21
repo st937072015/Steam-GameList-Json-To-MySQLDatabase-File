@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-public class Control_hub18 {
+public class Control_hub26_4 {
 
 	public static void main(String[] args) {
 
@@ -41,7 +41,7 @@ public class Control_hub18 {
 			
 			
 			
-			LinkedHashMap<String, LinkedHashMap<String, Double>> review_none_merge = om.readValue(new File("D:\\steam_personality\\Rock_第一種人格特質評論對映方法_未與屬性標籤合併版本.json"), LinkedHashMap.class);
+			LinkedHashMap<String, LinkedHashMap<String, Double>> review_none_merge = om.readValue(new File("D:\\steam_personality\\Mairesse\\Mairesse_第一種人格特質評論對映方法_未與屬性標籤合併版本.json"), LinkedHashMap.class);
 			
 	        
 			
@@ -72,7 +72,7 @@ public class Control_hub18 {
 			
 			 // 輸出所有合併結果之json檔案
 						
-		     om.writeValue(new File("D:\\steam_personality\\Rock_第一種人格特質評論對映方法_已與屬性標籤合併版本.json"), store_merge_hashmap);
+		     om.writeValue(new File("D:\\steam_personality\\Mairesse\\Mairesse_第一種人格特質評論對映方法_已與屬性標籤合併版本.json"), store_merge_hashmap);
 
 
 		} catch (
