@@ -117,13 +117,31 @@ Steam_json資料夾中包含:
 
 ## 2016/06/22
 
+斷詞部分捨去中研院CKIP 而轉改用Lucene 因為CKIP無法處理大量文字資料
+
 終於抓完了所有可怕的巨量資料
 
 加入Lucene StandAnalyzer之功能
 
+由於LIWC 2015 字詞統計軟體匯出統計字詞種類csv功能 無法批次輸出多筆文字文件
+
+且寫信詢問LIWC官方是否能提供批次統計轉檔功能或是java程式API
+
+以下為官方回覆
+
+Hi Rock,
+
+In the LIWC2015 application, we currently only have the functionality built in to do this feature for one text at a time. This is primarily a feature that can be used to test custom dictionaries, etc. with example files.
+
+This may be something that Receptiviti can provide for you if you are interested, although most likely not with the internal LIWC dictionary, as this would essentially be the equivalent of reverse-engineering the internal dictionary, which is strictly prohibited by the EULA.
+
+所以只好自行將LIWC 2015軟體附贈的LIWC 2001詞庫PDF檔自行轉換為程式可執行之開放格式檔案json
+
 ------------------------------------------------
 
 ## 2016/06/24
+
+LIWC 2001 PDF 人工keyin與轉換json結構化類別字典完成
 
 前置處理功能完成
 
