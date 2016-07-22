@@ -233,8 +233,21 @@ public class  Steam_Mysql_import_command {
 		try {
 		
 	    // 插入遊戲人格特質計算後資料至資料庫
-		pre = consql.prepareStatement("INSERT INTO game_tag_table(game_appid, tag_name) VALUES(?, ?)");
-		pre.setString(1, appid);
+		pre = consql.prepareStatement("INSERT INTO game_schema_table("
+				                     + "game_appid, gamename,"
+				                     + "rock_none_review_merge,"
+				                     + "chang_none_review_merge,"
+				                     + "mairesse_none_review_merge,"
+				                     + "rock_none_user_merge,"
+				                     + "chang_none_user_merge,"
+				                     + "mairesse_none_user_merge,"
+				                     + "rock_review_merge,"
+				                     + "chang_review_merge,"
+				                     + "mairesse_review_merge,"
+				                     + "rock_user_merge,"
+				                     + "chang_user_merge, mairesse_user_merge)"
+				                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		pre.setInt(1, Integer.parseInt(appid));
 		pre.setString(2, gamename);
 		pre.setString(3, om.writeValueAsString(a.get(appid)));
 		pre.setString(4, om.writeValueAsString(b.get(appid)));
