@@ -18,6 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class  Steam_Mysql_import_command {
@@ -232,45 +233,94 @@ public class  Steam_Mysql_import_command {
 		
 		try {
 		
-	    // 插入遊戲人格特質計算後資料至資料庫
+			
+	    /*
+	    // 插入遊戲基本資料至資料庫
 		pre = consql.prepareStatement("INSERT INTO game_schema_table("
-				                     + "game_appid, gamename,"
-				                     + "rock_none_review_merge,"
-				                     + "chang_none_review_merge,"
-				                     + "mairesse_none_review_merge,"
-				                     + "rock_none_user_merge,"
-				                     + "chang_none_user_merge,"
-				                     + "mairesse_none_user_merge,"
-				                     + "rock_review_merge,"
-				                     + "chang_review_merge,"
-				                     + "mairesse_review_merge,"
-				                     + "rock_user_merge,"
-				                     + "chang_user_merge, mairesse_user_merge)"
-				                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				                     + "game_appid, gamename)"
+				                     + "VALUES(?, ?)");
 		pre.setInt(1, Integer.parseInt(appid));
 		pre.setString(2, gamename);
-		pre.setString(3, om.writeValueAsString(a.get(appid)));
-		pre.setString(4, om.writeValueAsString(b.get(appid)));
-		pre.setString(5, om.writeValueAsString(c.get(appid)));
-		pre.setString(6, om.writeValueAsString(d.get(appid)));
-		pre.setString(7, om.writeValueAsString(e.get(appid)));
-		pre.setString(8, om.writeValueAsString(f.get(appid)));
-		pre.setString(9, om.writeValueAsString(g.get(appid)));
-		pre.setString(10, om.writeValueAsString(h.get(appid)));
-		pre.setString(11, om.writeValueAsString(i.get(appid)));
-		pre.setString(12, om.writeValueAsString(j.get(appid)));
-		pre.setString(13, om.writeValueAsString(k.get(appid)));
-		pre.setString(14, om.writeValueAsString(l.get(appid)));
+		*/
+		
+		
+		
+		
+		
+		/*
+	    // 插入第一種人格特質評論對映方法_未與屬性標籤合併版本資料至資料庫
+		pre = consql.prepareStatement("INSERT INTO none_review_merge("
+				                     + "game_appid,"
+				                     + "rock_none_review_merge,"
+				                     + "chang_none_review_merge,"
+				                     + "mairesse_none_review_merge)"
+				                     + "VALUES(?, ?, ?, ?)");
+		pre.setInt(1, Integer.parseInt(appid));
+		pre.setString(2, om.writeValueAsString(a.get(appid)));
+		pre.setString(3, om.writeValueAsString(b.get(appid)));
+		pre.setString(4, om.writeValueAsString(c.get(appid)));
+		*/
+		
+		
+		
+		
+		
+		
+		/*
+	    // 插入第二種人格特質評論對映方法_平均評論作者第二次未與屬性標籤合併版本資料至資料庫
+		pre = consql.prepareStatement("INSERT INTO none_user_merge("
+				                     + "game_appid,"
+				                     + "rock_none_user_merge,"
+				                     + "chang_none_user_merge,"
+				                     + "mairesse_none_user_merge)"
+				                     + "VALUES(?, ?, ?, ?)");
+		pre.setInt(1, Integer.parseInt(appid));
+		pre.setString(2, om.writeValueAsString(d.get(appid)));
+		pre.setString(3, om.writeValueAsString(e.get(appid)));
+		pre.setString(4, om.writeValueAsString(f.get(appid)));
+		*/
+		
+		
+		
+		
+		/*
+	    // 插入第一種人格特質評論對映方法_已與屬性標籤合併版本資料至資料庫
+		pre = consql.prepareStatement("INSERT INTO review_merge("
+				                     + "game_appid,"
+				                     + "rock_review_merge,"
+				                     + "chang_review_merge,"
+				                     + "mairesse_review_merge)"
+				                     + "VALUES(?, ?, ?, ?)");
+		pre.setInt(1, Integer.parseInt(appid));
+		pre.setString(2, om.writeValueAsString(g.get(appid)));
+		pre.setString(3, om.writeValueAsString(h.get(appid)));
+		pre.setString(4, om.writeValueAsString(i.get(appid)));
+		*/
+		
+		
+		
+	    // 插入第二種人格特質評論對映方法_平均評論作者第二次已與屬性標籤合併版本資料至資料庫
+		pre = consql.prepareStatement("INSERT INTO user_merge("
+				                     + "game_appid,"
+				                     + "rock_user_merge,"
+				                     + "chang_user_merge,"
+				                     + "mairesse_user_merge)"
+				                     + "VALUES(?, ?, ?, ?)");
+		pre.setInt(1, Integer.parseInt(appid));
+		pre.setString(2, om.writeValueAsString(j.get(appid)));
+		pre.setString(3, om.writeValueAsString(k.get(appid)));
+		pre.setString(4, om.writeValueAsString(l.get(appid)));
+		
 
 		pre.executeUpdate();
 		
 		
 		
-		} catch (IOException ex) {
-		  System.out.println(ex.toString());
 		} catch (NullPointerException ex) {
 		  System.out.println(ex.toString());
 		} catch (SQLException ex) {
+		  System.out.println(ex.toString());
+		} catch (JsonProcessingException ex) {
 		  System.out.println(ex.toString());
 		} finally {
 		  Close();
