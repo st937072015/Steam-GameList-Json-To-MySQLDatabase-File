@@ -142,7 +142,7 @@ public class  Steam_Mysql_import_command {
 				// Debug訊息
 				System.out.println("第" + count + "款，遊戲的id為 **" + collection.get("appid").toString() + "** " + "遊戲名為 **"
 						+ collection.get("name").toString() + "** ");
-				
+				/*
 				// 倒入計算後人格特質json文字資料至資料庫
 				go_sql.game_data_import(collection.get("appid").toString(), collection.get("name").toString(),
 						                Rock_第一種人格特質評論對映方法_未與屬性標籤合併版本,
@@ -157,13 +157,15 @@ public class  Steam_Mysql_import_command {
 						                Rock_第二種人格特質評論對映方法_平均評論作者第二次已與屬性標籤合併版本,
 						                Chang_第二種人格特質評論對映方法_平均評論作者第二次已與屬性標籤合併版本,
 						                Mairesse_第二種人格特質評論對映方法_平均評論作者第二次已與屬性標籤合併版本);
+						                
+						                */
 				
-				/*
+				
 				 
 				// 倒入屬性標籤資料至資料庫
-				go_sql.game_tag_import(collection.get("appid").toString());
+				go_sql.game_tag_import(collection.get("appid").toString(), collection.get("name").toString());
 				
-				*/
+				
 				
 
 				count++;
@@ -334,7 +336,7 @@ public class  Steam_Mysql_import_command {
 	}
 	
 	// 取出每款遊戲的標籤資料並倒入資料庫
-	public void game_tag_import(String appid) {
+	public void game_tag_import(String appid, String name) {
 		
 
 		
@@ -368,9 +370,10 @@ public class  Steam_Mysql_import_command {
 			
 			
 		    // 插入遊戲屬性標籤資料至資料庫
-			pre = consql.prepareStatement("INSERT INTO game_tag_table(game_appid, tag_name) VALUES(?, ?)");
+			pre = consql.prepareStatement("INSERT INTO game_tag_table(game_appid, gamename,tag_name) VALUES(?, ?, ?)");
 			pre.setInt(1, Integer.parseInt(appid));
-			pre.setString(2, collection.get("tag").toString());
+			pre.setString(2, name);
+			pre.setString(3, collection.get("tag").toString());
 
 			pre.executeUpdate();
 
